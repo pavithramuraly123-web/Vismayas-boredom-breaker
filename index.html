@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#ff72ad">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg">
+<title>VISMAYAS BOREDOM BREAKER</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:linear-gradient(145deg,#fff1f7,#f1edff);color:#33283b}.app{max-width:720px;margin:auto;min-height:100vh}.hero{padding:34px 20px 27px;text-align:center;color:#fff;background:linear-gradient(135deg,#ff72ad,#8d79ff);border-radius:0 0 34px 34px}.hero h1{font-size:29px;line-height:1.1;margin:8px 0}.wrap{padding:16px}.card{background:#fff;border-radius:24px;padding:18px;margin:13px 0;box-shadow:0 10px 30px #60407d18}.center{text-align:center}.btn{border:0;border-radius:16px;padding:13px 17px;background:#ff72ad;color:#fff;font-weight:800;margin:4px;cursor:pointer}.btn.alt{background:#eee9f6;color:#51435b}.btn.green{background:#53b58b}.pill{display:inline-block;background:#ffe0ee;color:#a63269;padding:6px 10px;border-radius:99px;font-size:12px;font-weight:800}.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.day{padding:12px 3px;border:0;border-radius:15px;background:#f6effa;font-weight:800;color:#5d4968}.day.lock{opacity:.38}.day.done{background:#e4f7ef}.hidden{display:none}.activity{border:1px solid #eee3f0;border-radius:18px;padding:15px;margin:11px 0}.activity h3{margin:0 0 8px}input,textarea,select{width:100%;padding:12px;border:1px solid #ded2e5;border-radius:13px;font:inherit;margin:5px 0 11px}.photo{width:100%;border-radius:17px;margin-top:8px}.tiny{font-size:13px;color:#786d80}.answer{font-weight:800;margin-top:8px}.top{display:flex;justify-content:space-between;align-items:center}.bar{height:9px;background:#eee8f3;border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,#ff72ad,#8d79ff);width:0}.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#33283b;color:#fff;border-radius:99px;padding:11px 17px;display:none;z-index:5}.reveal{background:#fff5fa;border-radius:16px;padding:12px;margin-top:8px}
+</style>
+</head>
+<body><div class="app">
+<header class="hero"><div style="font-size:42px">💗</div><h1>VISMAYAS BOREDOM BREAKER</h1><div>30 days of chaos, memories & nonsense™</div></header>
+<main class="wrap">
+<section id="home">
+<div class="card center"><span class="pill">RECOVERY ENTERTAINMENT DEPARTMENT</span><h2>Hey Vismaya! 👀</h2><p>When boredom attacks, open this tiny friendship-powered survival kit.</p><button class="btn" onclick="go('play')">🎮 ENTER THE CHAOS</button></div>
+<div class="card center"><h3>🌷 Official prescription</h3><p class="tiny">Rest. Relax. Laugh. And allow your friends to provide completely unnecessary entertainment. 🫶</p></div>
+<div class="card center"><button class="btn alt" onclick="go('creator')">✏️ Creator Mode</button></div>
+</section>
+
+<section id="play" class="hidden">
+<div class="card"><div class="top"><h2>📅 Your 30 Days</h2><b id="score">0/30</b></div><div class="bar"><i id="progress"></i></div><div id="days" class="grid" style="margin-top:12px"></div></div>
+<div id="game"></div><button class="btn alt" onclick="go('home')">← Home</button></section>
+
+<section id="creator" class="hidden">
+<div class="card"><span class="pill">PRIVATE CREATOR MODE ✨</span><h2>Prepare Vismaya's 30 days</h2><p class="tiny">Enter the question and answer separately. The answer is never shown in Player Mode.</p>
+<label>Day</label><select id="daySel"></select>
+<label>😂 Friend Quiz</label><input id="q1" placeholder="Question"><input id="a1" placeholder="Correct answer">
+<label>🧩 Puzzle</label><input id="q2" placeholder="Puzzle/question"><input id="a2" placeholder="Correct answer">
+<label>🕵️ Guess the Friend</label><input id="q3" placeholder="Clue"><input id="a3" placeholder="Correct friend/name">
+<label>🎲 Funny Question</label><input id="q4" placeholder="Question (no fixed answer needed)">
+<label>💌 Personal Message</label><textarea id="q5" rows="3" placeholder="Message for Vismaya"></textarea>
+<label>📸 Funny Photo</label><input id="photo" type="file" accept="image/*">
+<button class="btn" onclick="saveDay()">💾 SAVE DAY</button><button class="btn alt" onclick="preview()">👀 PREVIEW</button>
+</div></section>
+</main></div><div class="toast" id="toast"></div>
+<script>
+const DATA='vbb-pwa-data',DONE='vbb-pwa-done';const blank=()=>({q1:'',a1:'',q2:'',a2:'',q3:'',a3:'',q4:'',q5:'',photo:''});
+let data=JSON.parse(localStorage.getItem(DATA)||'null')||Array.from({length:30},blank),done=JSON.parse(localStorage.getItem(DONE)||'[]'),day=1;
+const $=x=>document.getElementById(x);
+function go(id){['home','play','creator'].forEach(x=>$(x).classList.toggle('hidden',x!==id));if(id==='play')renderDays();if(id==='creator')loadCreator()}
+function renderDays(){let b=$('days');b.innerHTML='';for(let i=1;i<=30;i++){let x=document.createElement('button');x.className='day '+(done.includes(i)?'done ':'')+(i>1&&!done.includes(i-1)?'lock':'');x.textContent=(done.includes(i)?'✓ ':'')+'DAY '+i;x.onclick=()=>{if(i===1||done.includes(i-1))openDay(i);else toast('Finish Day '+(i-1)+' first 💗')};b.appendChild(x)}$('score').textContent=done.length+'/30';$('progress').style.width=done.length/30*100+'%'}
+function openDay(n){day=n;let d=data[n-1],g=$('game');g.innerHTML='<div class="card center"><span class="pill">DAY '+String(n).padStart(2,'0')+'</span><h2>Today's chaos awaits 👀</h2></div>';
+let arr=[['😂 FRIEND QUIZ',d.q1,d.a1],['🧩 PUZZLE',d.q2,d.a2],['🕵️ GUESS THE FRIEND',d.q3,d.a3]];
+arr.forEach((a,i)=>{if(!a[1])return;let e=document.createElement('div');e.className='card activity';e.innerHTML='<h3>'+a[0]+'</h3><p>'+esc(a[1])+'</p><input id="ans'+i+'" placeholder="Your answer"><button class="btn" onclick="check('+i+',this)">LOCK IT IN 🔒</button><div class="answer"></div>';g.appendChild(e)});
+if(d.q4){let e=document.createElement('div');e.className='card activity';e.innerHTML='<h3>🎲 TODAY’S QUESTION</h3><p>'+esc(d.q4)+'</p><p class="tiny">No wrong answer. This one is just for chaos. 😂</p>';g.appendChild(e)}
+if(d.photo){let e=document.createElement('div');e.className='card activity';e.innerHTML='<h3>📸 PHOTO OF THE DAY</h3><img class="photo" src="'+d.photo+'"><p class="tiny">Please judge this masterpiece respectfully. 😭</p>';g.appendChild(e)}
+if(d.q5){let e=document.createElement('div');e.className='card activity';e.innerHTML='<h3>💌 MESSAGE FOR YOU</h3><p>'+esc(d.q5)+'</p>';g.appendChild(e)}
+let e=document.createElement('div');e.className='card center';e.innerHTML='<h3>🎉 Finished today?</h3><button class="btn green" onclick="completeDay('+n+')">COMPLETE DAY ✓</button>';g.appendChild(e);scrollTo({top:g.offsetTop-10,behavior:'smooth'})}
+function check(i,b){let d=data[day-1],ans=$('ans'+i).value.trim().toLowerCase(),cor=[d.a1,d.a2,d.a3][i].trim().toLowerCase(),o=b.parentElement.querySelector('.answer');if(!cor){o.textContent='💗 No fixed answer for this one!';return}if(ans===cor){o.textContent='🎉 CORRECT! Detective Vismaya approved.';b.disabled=true}else{o.textContent='❌ Not quite! Try again 👀'}}
+function completeDay(n){if(!done.includes(n))done.push(n);localStorage.setItem(DONE,JSON.stringify(done));renderDays();toast('Day '+n+' completed! 🎉');}
+function loadCreator(){let s=$('daySel');s.innerHTML='';for(let i=1;i<=30;i++){let o=document.createElement('option');o.value=i;o.textContent='Day '+String(i).padStart(2,'0');s.appendChild(o)}s.value=day;s.onchange=loadFields;loadFields()}
+function loadFields(){day=+$('daySel').value;let d=data[day-1];['q1','a1','q2','a2','q3','a3','q4','q5'].forEach(k=>$(k).value=d[k]||'');$('photo').value=''}
+function saveDay(){let d=data[day-1];['q1','a1','q2','a2','q3','a3','q4','q5'].forEach(k=>d[k]=$(k).value);let f=$('photo').files[0];if(f){let r=new FileReader();r.onload=()=>{d.photo=r.result;finish()};r.readAsDataURL(f)}else finish()}
+function finish(){localStorage.setItem(DATA,JSON.stringify(data));toast('Day '+day+' saved 💗')}
+function preview(){localStorage.setItem(DATA,JSON.stringify(data));go('play');openDay(day)}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
+function toast(t){let x=$('toast');x.textContent=t;x.style.display='block';setTimeout(()=>x.style.display='none',1800)}
+if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+go('home');
+</script></body></html>
