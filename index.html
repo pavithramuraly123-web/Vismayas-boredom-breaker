@@ -1,31 +1,193 @@
-<script>
-const nav=document.getElementById('nav');
-const days=document.querySelectorAll('.day');
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#ff5c9a">
+<title>VISMAYA'S BOREDOM BREAKER</title>
 
-days.forEach((d,i)=>{
-  let b=document.createElement('button');
-  b.textContent='Day '+(i+1);
-  b.onclick=()=>d.scrollIntoView({behavior:'smooth'});
-  nav.appendChild(b);
-});
+<style>
+*{box-sizing:border-box}
+body{
+margin:0;
+font-family:system-ui,sans-serif;
+background:linear-gradient(135deg,#fff0f7,#f3edff);
+color:#2b2030
+}
+header{
+background:#fff;
+padding:26px 15px;
+text-align:center;
+position:sticky;
+top:0;
+z-index:5;
+box-shadow:0 2px 14px #0001
+}
+h1{margin:0;font-size:25px}
+header p{margin:6px;color:#777}
+.wrap{max-width:760px;margin:auto;padding:14px}
+nav{
+display:flex;
+gap:7px;
+overflow:auto;
+padding:8px 0;
+position:sticky;
+top:100px;
+z-index:4
+}
+nav button{
+border:0;
+background:#fff;
+border-radius:12px;
+padding:9px 12px;
+white-space:nowrap;
+font-weight:700
+}
+nav button.active{
+background:#ff5c9a;
+color:#fff
+}
+.day{
+background:#fff;
+border-radius:24px;
+padding:17px;
+margin:15px 0;
+box-shadow:0 8px 25px #0000000c
+}
+.dayhead{
+display:flex;
+justify-content:space-between;
+gap:10px;
+margin-bottom:12px;
+align-items:center
+}
+.dayhead b{font-size:21px}
+.dayhead span{
+color:#df4b87;
+font-size:13px;
+font-weight:800;
+text-align:right
+}
+.activity{
+border:1px solid #f0e3ea;
+border-radius:17px;
+padding:14px;
+margin:10px 0
+}
+.tag{
+color:#df4b87;
+font-weight:800;
+font-size:13px
+}
+h3{
+font-size:16px;
+line-height:1.45;
+margin:7px 0
+}
+.answer{
+background:#faf6f9;
+padding:10px;
+border-radius:11px;
+color:#666;
+font-size:14px
+}
+.activity button{
+width:100%;
+margin-top:8px;
+border:0;
+border-radius:12px;
+padding:11px;
+background:#ff5c9a;
+color:#fff;
+font-weight:800
+}
+.reveal{
+display:none;
+margin-top:8px;
+padding:11px;
+background:#f2efff;
+border-radius:11px
+}
+.reveal.show{display:block}
+.formbox{
+background:#fff;
+border-radius:22px;
+padding:20px;
+margin:25px 0;
+box-shadow:0 8px 25px #0000000c;
+text-align:center
+}
+.formbutton{
+display:block;
+background:#ff5c9a;
+color:#fff;
+text-decoration:none;
+padding:14px;
+border-radius:14px;
+font-weight:800;
+margin-top:12px
+}
+</style>
+</head>
 
-/* ANSWER FORM BUTTON */
-const formBox=document.createElement('div');
+<body>
 
-formBox.style.cssText=
-'background:#fff;border-radius:20px;padding:18px;margin:15px 0;box-shadow:0 8px 25px #0000000c;text-align:center;';
+<header>
+<h1>💗 VISMAYA'S BOREDOM BREAKER 💗</h1>
+<p>15 days • 5 missions every day • friendship chaos 😂</p>
+</header>
 
-formBox.innerHTML=`
-<h3 style="margin:0 0 8px;">💌 Tell Pavithra your answers</h3>
-<p style="color:#777;font-size:14px;margin:5px 0 12px;">
-Finished today's missions? Send your answers here! 💗
+<div class="wrap">
+
+<nav id="nav"></nav>
+
+<div id="days"></div>
+
+<div class="formbox">
+<h2 style="margin:0 0 8px">💌 Tell Pavithra!</h2>
+<p style="color:#777;font-size:14px">
+Finished today's missions? Send your answers here 💗
 </p>
-<a href="https://docs.google.com/forms/d/e/1FAIpQLSeddvp_RgNhP1Jb5zk9kxffK8XJVkVkkX0rKq2GhlDFWq-9tg/viewform?usp=dialog"
-target="_blank"
-style="display:block;background:#ff5c9a;color:white;text-decoration:none;border-radius:12px;padding:12px;font-weight:800;">
+
+<a
+class="formbutton"
+href="https://docs.google.com/forms/d/e/1FAIpQLSeddvp_RgNhP1Jb5zk9kxffK8XJVkVkkX0rKq2GhlDFWq-9tg/viewform?usp=dialog"
+target="_blank">
 💗 SUBMIT TODAY'S ANSWERS
 </a>
-`;
+</div>
 
-document.querySelector('.wrap').prepend(formBox);
-  </script>
+</div>
+
+<script>
+
+const data=[
+
+{
+title:"📸 PHOTO + CHAOS STARTER",
+items:[
+["📸 PHOTO MYSTERY","PHOTO SLOT — add your Day 1 photo here later.","Your guess: __________","The evidence has been preserved. 😂"],
+["🧠 SHARED BRAIN CELL","Who is most likely to have the same brain cells as Vismaya?","A) Angel  B) Adithya  C) Meharoofa  D) Pavithra","Angel + Vismaya = one shared brain cell. 🧠😂"],
+["😂 RIDDLE","What has a face and two hands but no arms or legs?","Your answer: __________","A clock! ⏰"],
+["🎯 MINI CHALLENGE","Stay completely silent for 60 seconds. No talking. No laughing.","Done? YES / NO","We know you probably lasted 7 seconds. 😭"],
+["💌 SECRET NOTE","Write one thing you secretly miss about your gang.","Your answer: __________","Your gang misses your chaos too. 💗"]
+]
+},
+
+{
+title:"📸 PHOTO + FRIEND DETECTIVE",
+items:[
+["📸 GUESS THE PHOTO","PHOTO SLOT — add your Day 2 photo here later.","Your guess: __________","Photo evidence unlocked. 📸"],
+["🕵️ WHO SAID IT?","Who is most likely to say “I'm coming” and then take forever?","A) Vismaya  B) Angel  C) Adithya  D) Meharoofa","Vismaya's arrival time deserves its own calendar. 😂"],
+["🤣 WOULD YOU RATHER","Would you rather let your friends read your last 10 searches OR see your last 10 screenshots?","A) Searches  B) Screenshots","Both options are dangerous. 💀"],
+["🔤 EMOJI DECODE","Decode: 📱💕📞🔄😭📱","Your answer: __________","Angel's relationship roller-coaster + phone combo. 🎢😂"],
+["🎭 IMITATION CHALLENGE","Imitate one friend for 30 seconds without saying their name.","Who did you imitate? __________","We already know who you picked. 👀"]
+]
+},
+
+{
+title:"📸 PHOTO + MEMORY DAY",
+items:[
+["📸 MYSTERY MEMORY","PHOTO SLOT — add your Day 3 photo here later.","What memory does this photo remind you of? __________","One photo = 1000 unnecessary memories. 🥹😂"],
+["📚 STUDY HOLIDAY QUIZ","Who needs repeated reminders to come earlier during study holidays?","A) Vismaya  B) Angel  C) Meharoofa  D) Adithya","The late-comer has entered the chat. 😭"],
+["😂 COMPLETE IT","“Our group would never survive without ______.”","Your answer: __________","Acceptable answers include food, gossip and Pavith
