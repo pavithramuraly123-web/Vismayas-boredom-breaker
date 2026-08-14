@@ -1,131 +1,236 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="theme-color" content="#ff5c9a">
-<title>VISMAYA'S BOREDOM BREAKER</title>
+
+<title>Vismaya's Boredom Breaker</title>
 
 <style>
 *{box-sizing:border-box}
+
 body{
-margin:0;
-font-family:system-ui,sans-serif;
-background:linear-gradient(135deg,#fff0f7,#f3edff);
-color:#2b2030
+ margin:0;
+ font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+ background:linear-gradient(135deg,#fff0f7,#f3edff);
+ color:#302332;
 }
+
 header{
-background:#fff;
-padding:26px 15px;
-text-align:center;
-position:sticky;
-top:0;
-z-index:5;
-box-shadow:0 2px 14px #0001
+ background:rgba(255,255,255,.95);
+ padding:25px 15px 20px;
+ text-align:center;
+ position:sticky;
+ top:0;
+ z-index:10;
+ box-shadow:0 3px 18px #00000012;
 }
-h1{margin:0;font-size:25px}
-header p{margin:6px;color:#777}
-.wrap{max-width:760px;margin:auto;padding:14px}
+
+.logo{
+ font-size:30px;
+ margin-bottom:5px;
+}
+
+h1{
+ margin:0;
+ font-size:25px;
+ font-weight:900;
+}
+
+header p{
+ margin:7px 0 0;
+ color:#777;
+ font-size:14px;
+}
+
+.wrap{
+ max-width:760px;
+ margin:auto;
+ padding:12px;
+}
+
 nav{
-display:flex;
-gap:7px;
-overflow:auto;
-padding:8px 0;
-position:sticky;
-top:100px;
-z-index:4
+ display:flex;
+ gap:7px;
+ overflow-x:auto;
+ padding:8px 2px 12px;
+ scrollbar-width:none;
 }
+
+nav::-webkit-scrollbar{display:none}
+
 nav button{
-border:0;
-background:#fff;
-border-radius:12px;
-padding:9px 12px;
-white-space:nowrap;
-font-weight:700
+ border:0;
+ background:white;
+ color:#555;
+ border-radius:14px;
+ padding:9px 14px;
+ white-space:nowrap;
+ font-weight:700;
+ box-shadow:0 2px 8px #00000008;
 }
+
 nav button.active{
-background:#ff5c9a;
-color:#fff
+ background:#ff5c9a;
+ color:white;
 }
+
 .day{
-background:#fff;
-border-radius:24px;
-padding:17px;
-margin:15px 0;
-box-shadow:0 8px 25px #0000000c
+ background:white;
+ border-radius:25px;
+ padding:17px;
+ margin:15px 0 25px;
+ box-shadow:0 10px 30px #0000000d;
 }
+
 .dayhead{
-display:flex;
-justify-content:space-between;
-gap:10px;
-margin-bottom:12px;
-align-items:center
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:10px;
+ margin-bottom:14px;
 }
-.dayhead b{font-size:21px}
+
+.dayhead b{
+ font-size:22px;
+}
+
 .dayhead span{
-color:#df4b87;
-font-size:13px;
-font-weight:800;
-text-align:right
+ color:#df4b87;
+ font-size:12px;
+ font-weight:900;
+ text-align:right;
 }
+
 .activity{
-border:1px solid #f0e3ea;
-border-radius:17px;
-padding:14px;
-margin:10px 0
+ border:1px solid #f0e3ea;
+ border-radius:18px;
+ padding:14px;
+ margin:11px 0;
+ background:linear-gradient(180deg,#fff,#fffafd);
 }
+
 .tag{
-color:#df4b87;
-font-weight:800;
-font-size:13px
+ color:#df4b87;
+ font-weight:900;
+ font-size:12px;
 }
+
 h3{
-font-size:16px;
-line-height:1.45;
-margin:7px 0
+ font-size:16px;
+ line-height:1.45;
+ margin:7px 0 10px;
 }
+
 .answer{
-background:#faf6f9;
-padding:10px;
-border-radius:11px;
-color:#666;
-font-size:14px
+ background:#faf6f9;
+ padding:10px;
+ border-radius:12px;
+ color:#777;
+ font-size:14px;
+ margin-bottom:8px;
 }
+
+.answer input,
+.answer textarea{
+ width:100%;
+ border:1px solid #eadde5;
+ border-radius:10px;
+ padding:10px;
+ font:inherit;
+ outline:none;
+ background:white;
+}
+
+.answer textarea{
+ min-height:70px;
+ resize:vertical;
+}
+
+.answer input:focus,
+.answer textarea:focus{
+ border-color:#ff5c9a;
+}
+
 .activity button{
-width:100%;
-margin-top:8px;
-border:0;
-border-radius:12px;
-padding:11px;
-background:#ff5c9a;
-color:#fff;
-font-weight:800
+ width:100%;
+ margin-top:7px;
+ border:0;
+ border-radius:13px;
+ padding:11px;
+ background:#ff5c9a;
+ color:white;
+ font-weight:800;
+ font-size:14px;
 }
+
 .reveal{
-display:none;
-margin-top:8px;
-padding:11px;
-background:#f2efff;
-border-radius:11px
+ display:none;
+ margin-top:8px;
+ padding:11px;
+ background:#f2efff;
+ border-radius:11px;
+ font-size:14px;
 }
-.reveal.show{display:block}
-.formbox{
-background:#fff;
-border-radius:22px;
-padding:20px;
-margin:25px 0;
-box-shadow:0 8px 25px #0000000c;
-text-align:center
+
+.reveal.show{
+ display:block;
 }
-.formbutton{
-display:block;
-background:#ff5c9a;
-color:#fff;
-text-decoration:none;
-padding:14px;
-border-radius:14px;
-font-weight:800;
-margin-top:12px
+
+.saveBox{
+ background:linear-gradient(135deg,#ffedf6,#eee9ff);
+ border-radius:22px;
+ padding:18px;
+ margin:25px 0;
+ text-align:center;
+}
+
+.saveBox h2{
+ margin:0 0 5px;
+ font-size:19px;
+}
+
+.saveBox p{
+ margin:5px 0 12px;
+ color:#777;
+ font-size:13px;
+}
+
+.saveBtn{
+ border:0;
+ background:#ff5c9a;
+ color:white;
+ padding:12px 20px;
+ border-radius:14px;
+ font-weight:900;
+ font-size:14px;
+}
+
+.clearBtn{
+ border:0;
+ background:white;
+ color:#df4b87;
+ padding:10px 18px;
+ border-radius:13px;
+ margin-left:5px;
+ font-weight:800;
+}
+
+.heart{
+ animation:pulse 1.5s infinite;
+ display:inline-block;
+}
+
+@keyframes pulse{
+ 50%{transform:scale(1.15)}
+}
+
+.footer{
+ text-align:center;
+ color:#999;
+ font-size:12px;
+ padding:15px 5px 30px;
 }
 </style>
 </head>
@@ -133,8 +238,9 @@ margin-top:12px
 <body>
 
 <header>
-<h1>💗 VISMAYA'S BOREDOM BREAKER 💗</h1>
-<p>15 days • 5 missions every day • friendship chaos 😂</p>
+ <div class="logo"><span class="heart">💗</span></div>
+ <h1>VISMAYA'S BOREDOM BREAKER</h1>
+ <p>15 days • 5 missions every day • friendship chaos 😂</p>
 </header>
 
 <div class="wrap">
@@ -143,51 +249,337 @@ margin-top:12px
 
 <div id="days"></div>
 
-<div class="formbox">
-<h2 style="margin:0 0 8px">💌 Tell Pavithra!</h2>
-<p style="color:#777;font-size:14px">
-Finished today's missions? Send your answers here 💗
-</p>
+<div class="saveBox">
+ <h2>💌 Little Memory Box</h2>
+ <p>Your answers are saved on this phone so you can come back to them later.</p>
+ <button class="saveBtn" onclick="saveAnswers()">💾 SAVE MY ANSWERS</button>
+ <button class="clearBtn" onclick="clearAnswers()">CLEAR</button>
+</div>
 
-<a
-class="formbutton"
-href="https://docs.google.com/forms/d/e/1FAIpQLSeddvp_RgNhP1Jb5zk9kxffK8XJVkVkkX0rKq2GhlDFWq-9tg/viewform?usp=dialog"
-target="_blank">
-💗 SUBMIT TODAY'S ANSWERS
-</a>
+<div class="footer">
+ Made with 💗 for a very special friendship.
 </div>
 
 </div>
 
 <script>
 
-const data=[
+const missions = [
 
+/* DAY 1 */
 {
 title:"📸 PHOTO + CHAOS STARTER",
 items:[
-["📸 PHOTO MYSTERY","PHOTO SLOT — add your Day 1 photo here later.","Your guess: __________","The evidence has been preserved. 😂"],
-["🧠 SHARED BRAIN CELL","Who is most likely to have the same brain cells as Vismaya?","A) Angel  B) Adithya  C) Meharoofa  D) Pavithra","Angel + Vismaya = one shared brain cell. 🧠😂"],
-["😂 RIDDLE","What has a face and two hands but no arms or legs?","Your answer: __________","A clock! ⏰"],
-["🎯 MINI CHALLENGE","Stay completely silent for 60 seconds. No talking. No laughing.","Done? YES / NO","We know you probably lasted 7 seconds. 😭"],
-["💌 SECRET NOTE","Write one thing you secretly miss about your gang.","Your answer: __________","Your gang misses your chaos too. 💗"]
-]
-},
+["📸 PHOTO MYSTERY","PHOTO SLOT — add your Day 1 photo here later.","The evidence has been preserved. 😂"],
+["🧠 SHARED BRAIN CELL","Who is most likely to have the same brain cells as Vismaya?<br><br>A) Angel &nbsp; B) Adithya &nbsp; C) Meharoofa &nbsp; D) Someone else","Angel + Vismaya = one shared brain cell. 🧠😂"],
+["😂 RIDDLE","What has a face and two hands but no arms or legs?","A clock! ⏰"],
+["🎯 MINI CHALLENGE","Stay completely silent for 60 seconds. No talking. No laughing.","We know you probably lasted 7 seconds. 😭"],
+["💌 SECRET NOTE","Write one thing you secretly miss about your gang.","Your gang misses your chaos too. 💗"]
+]},
 
+/* DAY 2 */
 {
 title:"📸 PHOTO + FRIEND DETECTIVE",
 items:[
-["📸 GUESS THE PHOTO","PHOTO SLOT — add your Day 2 photo here later.","Your guess: __________","Photo evidence unlocked. 📸"],
-["🕵️ WHO SAID IT?","Who is most likely to say “I'm coming” and then take forever?","A) Vismaya  B) Angel  C) Adithya  D) Meharoofa","Vismaya's arrival time deserves its own calendar. 😂"],
-["🤣 WOULD YOU RATHER","Would you rather let your friends read your last 10 searches OR see your last 10 screenshots?","A) Searches  B) Screenshots","Both options are dangerous. 💀"],
-["🔤 EMOJI DECODE","Decode: 📱💕📞🔄😭📱","Your answer: __________","Angel's relationship roller-coaster + phone combo. 🎢😂"],
-["🎭 IMITATION CHALLENGE","Imitate one friend for 30 seconds without saying their name.","Who did you imitate? __________","We already know who you picked. 👀"]
-]
-},
+["📸 GUESS THE PHOTO","PHOTO SLOT — add your Day 2 photo here later.","Photo evidence unlocked. 📸"],
+["🕵️ WHO SAID IT?","Who is most likely to say “I'm coming” and then take forever?<br><br>A) Vismaya &nbsp; B) Angel &nbsp; C) Adithya &nbsp; D) Meharoofa","Vismaya's arrival time deserves its own calendar. 😂"],
+["🤣 WOULD YOU RATHER","Would you rather let your friends read your last 10 searches OR see your last 10 screenshots?","Both options are dangerous. 💀"],
+["🔤 EMOJI DECODE","Decode: 📱💕📞🔄😭📱","Angel's relationship roller-coaster + phone combo. 🎢😂"],
+["🎭 IMITATION CHALLENGE","Imitate one friend for 30 seconds without saying their name.","We already know who you picked. 👀"]
+]},
 
+/* DAY 3 */
 {
 title:"📸 PHOTO + MEMORY DAY",
 items:[
-["📸 MYSTERY MEMORY","PHOTO SLOT — add your Day 3 photo here later.","What memory does this photo remind you of? __________","One photo = 1000 unnecessary memories. 🥹😂"],
-["📚 STUDY HOLIDAY QUIZ","Who needs repeated reminders to come earlier during study holidays?","A) Vismaya  B) Angel  C) Meharoofa  D) Adithya","The late-comer has entered the chat. 😭"],
-["😂 COMPLETE IT","“Our group would never survive without ______.”","Your answer: __________","Acceptable answers include food, gossip and Pavith
+["📸 MYSTERY MEMORY","PHOTO SLOT — add your Day 3 photo here later.","One photo = 1000 unnecessary memories. 🥹😂"],
+["📚 STUDY HOLIDAY QUIZ","Who needs repeated reminders to come earlier during study holidays?","The late-comer has entered the chat. 😭"],
+["😂 COMPLETE IT","“Our group would never survive without ______.”","Acceptable answers include food, gossip and academic rescue. 😂"],
+["🎵 SONG MEMORY","Choose a song that instantly reminds you of your gang.","If the gang hears it, chaos begins. 🎶"],
+["💗 MEMORY PROMPT","Name one moment with this group that you would happily relive.","Okay, now we're getting emotional. 🥹"]
+]},
+
+/* DAY 4 */
+{
+title:"😴 VISMAYA'S OPERATING SYSTEM",
+items:[
+["😂 WAKE-UP QUIZ","Who is hardest to wake up in the group?<br><br>A) Vismaya &nbsp; B) Angel &nbsp; C) Adithya &nbsp; D) Meharoofa","Vismaya.exe requires several attempts to start. 😴"],
+["🗣️ SLEEP TALK MYSTERY","If Vismaya says something random while sleeping, will she remember it later?<br><br>A) Always &nbsp; B) Sometimes &nbsp; C) Absolutely not","C is looking very accurate. 😂"],
+["🍔 HUBGRY ALERT","Complete: “Vismaya is not angry, she is just ______.”","HUBGRY. The official diagnosis. 🍔😂"],
+["🎯 MINI CHALLENGE","Set a 30-second timer and do absolutely nothing until it rings.","Doing nothing is harder than it looks. 😭"],
+["👑 TITLE TEST","Choose Vismaya's official title:<br><br>A) Sleep Minister<br>B) Chaos Minister<br>C) Hubgry Minister<br>D) All three","D is suspiciously accurate. 👑"]
+]},
+
+/* DAY 5 */
+{
+title:"📱 ANGEL'S PHONE DIMENSION",
+items:[
+["📱 ANGEL RADAR","What is Angel most likely holding?<br><br>A) Book &nbsp; B) Phone &nbsp; C) Banana &nbsp; D) Stethoscope","Her phone has permanent residency. 😂"],
+["💕 ROLLER-COASTER QUIZ","Angel's relationship is best described as:<br><br>A) Straight line &nbsp; B) Roller coaster &nbsp; C) Train journey &nbsp; D) Wi-Fi signal","Roller coaster. 🎢😂"],
+["🛏️ NATURAL HABITAT","Where is Angel most likely to be found?<br><br>A) Library &nbsp; B) Her cot &nbsp; C) Playground &nbsp; D) Lab","Cot = Angel headquarters. 🛏️"],
+["🧠 BRAIN CELL TEST","Who has suspiciously similar brain cells to Vismaya?<br><br>A) Angel &nbsp; B) Adithya &nbsp; C) Meharoofa &nbsp; D) Nobody","Angel. One brain cell, two people. 😂"],
+["🎯 PHONE CHALLENGE","Put your phone away for 10 minutes. Survive.","Angel has entered survival mode. 📵😂"]
+]},
+
+/* DAY 6 */
+{
+title:"📞 ADITHYA IS BUSY",
+items:[
+["📞 CALL DETECTOR","When everyone enters Adithya's room, what is she most likely doing?<br><br>A) Studying &nbsp; B) Calling &nbsp; C) Sleeping &nbsp; D) Cooking","Calling. Obviously. 😂"],
+["😭 SOFT HEART QUIZ","Who is most likely to cry first during an emotional moment?<br><br>A) Adithya &nbsp; B) Angel &nbsp; C) Meharoofa &nbsp; D) Nobody","Adithya's tears have a VIP pass. 😭"],
+["🐄 FARMER FUTURE","Adithya's dream is closest to:<br><br>A) Astronaut &nbsp; B) Farmer/animal caretaker &nbsp; C) Chef &nbsp; D) DJ","Future farmer Adithya! 🐄🐔"],
+["🐔 ANIMAL CHALLENGE","Name 3 animals Adithya would happily take care of.","Cows, birds and hens already have a fan club. 🐄"],
+["😂 FOOLISHNESS METER","Rate Adithya's foolishness from 1–10.","The group has officially measured the foolishness. 😂"]
+]},
+
+/* DAY 7 */
+{
+title:"🔊 MEHAROOFA VOLUME MAX",
+items:[
+["🔊 VOLUME QUIZ","What happens when Meharoofa gets excited?<br><br>A) Whisper &nbsp; B) Normal voice &nbsp; C) Stadium mode","Stadium mode. Everyone gets the announcement. 📢😂"],
+["😡 ANGRY METER","Meharoofa's angry volume is closest to:<br><br>A) 1% &nbsp; B) 50% &nbsp; C) 200%","200%. The walls know. 😭"],
+["💕 AACHI QUIZ","Who occupies a suspiciously large portion of Meharoofa's thoughts?<br><br>A) Aachi &nbsp; B) Physics &nbsp; C) Vegetables &nbsp; D) Nobody","AACHI has entered the chat. 😂"],
+["💇 HAIR APPRECIATION","What is one thing everyone notices about Meharoofa?","The hair deserves its own fan page. ✨"],
+["🎯 DRAMATIC VOICE","Say one sentence in the loudest dramatic voice possible.","Meharoofa would approve. 📢"]
+]},
+
+/* DAY 8 */
+{
+title:"👩‍🏫 THE CLASSROOM",
+items:[
+["📚 WHO TEACHES WHOM?","Who becomes the unofficial teacher before exams?<br><br>A) Angel &nbsp; B) Pavithra &nbsp; C) Vismaya &nbsp; D) Adithya","The unofficial teacher has entered the chat. 📚😂"],
+["😨 SCOLDING METER","Who is the group most likely to be scared of the strictest friend?<br><br>A) Everyone &nbsp; B) Nobody &nbsp; C) The teachers","Everyone. 😂"],
+["🧠 STUDY MYTH","Who somehow manages to explain difficult topics when everyone is confused?","Suspicious academic powers detected. 👑"],
+["🎯 TEACHER CHALLENGE","Explain one topic you know in exactly 3 sentences.","Congratulations, Professor. 👩‍🏫"],
+["💗 APPRECIATION","Write one thing you appreciate about the friend who helps you before exams.","The mature one pretends to scold, but actually cares a lot. 💗"]
+]},
+
+/* DAY 9 */
+{
+title:"😈 VISMAYA'S CHAOS FILE",
+items:[
+["😈 CHAOS QUIZ","Who is most likely to turn a peaceful situation into chaos?<br><br>A) Vismaya &nbsp; B) Angel &nbsp; C) Adithya &nbsp; D) Meharoofa","The evidence points strongly toward Vismaya. 😂"],
+["🤬 WORD FILTER","If Vismaya had a swear-word counter, it would be:<br><br>A) Empty &nbsp; B) Low &nbsp; C) Working overtime","Working overtime. 💀"],
+["😴 WAKE-UP CHALLENGE","Pretend you are trying to wake Vismaya. Give yourself 3 attempts.","She may still be sleeping. 😭"],
+["🗯️ NONSENSE GENERATOR","Write the most nonsense sentence you can think of.","Vismaya would probably say this confidently. 😂"],
+["🍔 HUNGER CHECK","Complete: “I'm not hungry, I'm ______.”","HUBGRY strikes again. 🍔"]
+]},
+
+/* DAY 10 */
+{
+title:"🚂 TRAIN JOURNEY CHAOS",
+items:[
+["🚂 TRAIN PERSONALITY","What happens to Vismaya during train journeys?<br><br>A) Silent &nbsp; B) Extra extroverted &nbsp; C) Sleeps &nbsp; D) Studies","Extra extroverted. 😂"],
+["🗣️ PASSENGER CHALLENGE","Imagine starting a random conversation with a stranger. What would your opening line be?","A whole new friendship before the next station. 😭"],
+["🎭 SCENE GENERATOR","Pick one:<br><br>A) Missed the station<br>B) Made a new friend<br>C) Started random gossip<br>D) All","D feels dangerously realistic. 😂"],
+["🧩 TRAVEL RIDDLE","What travels everywhere but never leaves its place?","A road. 🛣️"],
+["💭 TRAVEL MEMORY","What is your funniest train-journey memory?","That journey deserves a documentary. 🎬"]
+]},
+
+/* DAY 11 */
+{
+title:"🏫 COLLEGE BUNK FILES",
+items:[
+["🏃 BUNK QUIZ","Who usually refuses to join when the gang bunk classes?<br><br>A) The responsible one &nbsp; B) Angel &nbsp; C) Meharoofa &nbsp; D) Vismaya","Attendance queen has entered. 👑"],
+["📱 PHONE INCIDENT","Who once got their phone taken after a class incident?<br><br>A) Vismaya &nbsp; B) Angel &nbsp; C) Adithya &nbsp; D) Meharoofa","The phone had its own college incident. 📱😭"],
+["🕵️ CCTV CHALLENGE","Imagine CCTV is watching your group. What is the funniest thing it would catch?","Please don't submit this to the warden. 😂"],
+["🎯 COORDINATOR CHALLENGE","Pretend you're the strictest class coordinator for 30 seconds.","Somewhere, a teacher just felt a disturbance. 😭"],
+["😂 CAPTION GAME","Caption: “Everyone bunked class except one person.”","Attendance queen has entered. 👑"]
+]},
+
+/* DAY 12 */
+{
+title:"📚 STUDY HOLIDAY SURVIVAL",
+items:[
+["📚 STUDY QUIZ","Who makes everyone actually study during study holidays?","The unofficial study department is open. 👩‍🏫"],
+["⏰ LATE ARRIVAL","Who is most likely to hear “Why didn't you come earlier?”","The late-comer has been summoned. 😂"],
+["🧠 EXAM CHALLENGE","Explain one exam topic without looking at notes.","If you survived, you deserve snacks. 🍫"],
+["🤣 STUDY EXCUSE","Invent the funniest excuse for not studying.","The excuses are more creative than the answers. 😂"],
+["🏆 AWARD","Who deserves “Most likely to study only after being reminded repeatedly”?","Award ceremony begins now. 🏆"]
+]},
+
+/* DAY 13 */
+{
+title:"🏠 HOSTEL CHAOS",
+items:[
+["🏠 HOSTEL QUIZ","Who is most likely to get recruited for a random hostel errand?","Hostel assistant has entered the chat. 😂"],
+["💇 ERRAND MYSTERY","Which random hostel side quest sounds the most believable?<br><br>A) Buying something<br>B) Finding something<br>C) Both","Hostel life has side quests. 😭"],
+["🎯 SIDE QUEST","Pick a completely unnecessary task and complete it in 5 minutes.","Side quest completed! 🎮"],
+["🧩 HOSTEL RIDDLE","What gets louder the more people are in a hostel room?","The conversation. 📢😂"],
+["💌 HOSTEL MEMORY","Write your funniest hostel memory.","Hostel memories are 10% sleep and 90% nonsense. 😂"]
+]},
+
+/* DAY 14 */
+{
+title:"💗 THE GANG TEST",
+items:[
+["🧠 GROUP BRAIN TEST","Who is the mature one in the group?","The responsible one has entered the chat. 😂"],
+["😂 OPPOSITE PAIR","Which two friends are famously opposite in personality?","Opposites somehow make the friendship work. 💗"],
+["💕 FRIENDSHIP QUESTION","What is one thing you love about your friend group?","Even with all the chaos, this gang is special. 🥹"],
+["🎯 APPRECIATION CHALLENGE","Send a friend a random “I appreciate you” message.","Emotional damage, but wholesome. 💗"],
+["👑 GANG AWARDS","Give each friend one ridiculous award.","The Friendship Awards are officially open. 🏆😂"]
+]},
+
+/* DAY 15 */
+{
+title:"👑 THE FINAL BOSS",
+items:[
+["🏆 FINAL QUIZ","Who is most likely to be on the phone?","The phone department has multiple suspects. 😂"],
+["🐄 CAREER GUESS","Who would genuinely enjoy running a farm full of animals?","Future farmer energy detected. 🐄"],
+["🍔 HUNGER TEST","Who made “HUBGRY” part of the gang vocabulary?","HUBGRY has officially become gang vocabulary. 🍔😂"],
+["🧠 BRAIN CELL FINAL","Who shares suspiciously similar brain cells with Vismaya?","The Brain Cell Department confirms: Angel. 😂"],
+["💌 FINAL MESSAGE","Write one thing you want Vismaya to remember about this friendship.","No matter how much we tease each other, this friendship is special. ❤️"]
+]}
+];
+
+
+/* CREATE DAYS */
+
+const nav=document.getElementById("nav");
+const daysContainer=document.getElementById("days");
+
+missions.forEach((day,index)=>{
+
+ const dayNumber=index+1;
+
+ const navButton=document.createElement("button");
+ navButton.textContent="Day "+dayNumber;
+
+ navButton.onclick=()=>{
+   document.getElementById("day"+dayNumber)
+   .scrollIntoView({behavior:"smooth"});
+ };
+
+ nav.appendChild(navButton);
+
+ const article=document.createElement("article");
+ article.className="day";
+ article.id="day"+dayNumber;
+
+ article.innerHTML=`
+ <div class="dayhead">
+   <b>DAY ${dayNumber}</b>
+   <span>${day.title}</span>
+ </div>
+ `;
+
+ day.items.forEach((item,itemIndex)=>{
+
+   const activity=document.createElement("section");
+   activity.className="activity";
+
+   const id=`day${dayNumber}_mission${itemIndex+1}`;
+
+   activity.innerHTML=`
+     <div class="tag">${item[0]}</div>
+
+     <h3>${item[1]}</h3>
+
+     <div class="answer">
+       <input
+         type="text"
+         id="${id}"
+         placeholder="Type your answer here..."
+       >
+     </div>
+
+     <button onclick="toggleReveal(this)">
+       👀 Reveal
+     </button>
+
+     <div class="reveal">
+       ${item[2]}
+     </div>
+   `;
+
+   article.appendChild(activity);
+
+ });
+
+ daysContainer.appendChild(article);
+
+});
+
+
+/* REVEAL BUTTON */
+
+function toggleReveal(button){
+ const reveal=button.nextElementSibling;
+ reveal.classList.toggle("show");
+
+ if(reveal.classList.contains("show")){
+   button.textContent="🙈 Hide";
+ }else{
+   button.textContent="👀 Reveal";
+ }
+}
+
+
+/* SAVE ANSWERS */
+
+function saveAnswers(){
+
+ const answers={};
+
+ document.querySelectorAll("input").forEach(input=>{
+   answers[input.id]=input.value;
+ });
+
+ localStorage.setItem(
+   "vismayaBoredomAnswers",
+   JSON.stringify(answers)
+ );
+
+ alert("💗 Your answers are safely saved on this phone!");
+}
+
+
+/* LOAD SAVED ANSWERS */
+
+window.addEventListener("load",()=>{
+
+ const saved=localStorage.getItem("vismayaBoredomAnswers");
+
+ if(!saved)return;
+
+ try{
+
+   const answers=JSON.parse(saved);
+
+   Object.keys(answers).forEach(id=>{
+
+     const input=document.getElementById(id);
+
+     if(input){
+       input.value=answers[id];
+     }
+
+   });
+
+ }catch(e){}
+
+});
+
+
+/* CLEAR ANSWERS */
+
+function clearAnswers(){
+
+ const confirmClear=
+ confirm("Are you sure you want to clear all your saved answers?");
+
+ if(!confirmClear)return;
+
+ localStorage.removeItem("vismayaBoredomAnswers");
+
+ document.querySelectorAll("input").forEach(input=>{
+   input.value="";
+ });
+
+ alert("Answers cleared 💗");
+}
+
+</script>
+
+</body>
+</html>
