@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vismaya's Boredom Breaker 💗</title>
+<title>Vismaya's Boredom Breaker</title>
 
 <style>
 *{
@@ -12,135 +12,174 @@
 
 body{
   margin:0;
-  font-family:Arial, sans-serif;
-  background:linear-gradient(135deg,#fff5fa,#fce7f3,#fdf2f8);
+  font-family:Arial,Helvetica,sans-serif;
+  background:linear-gradient(135deg,#fff0f6,#fce4ec,#f8e8ff);
   color:#333;
-}
-
-.app{
-  max-width:850px;
-  margin:auto;
   min-height:100vh;
 }
 
-header{
-  text-align:center;
-  padding:28px 18px 18px;
+.container{
+  width:100%;
+  max-width:650px;
+  margin:auto;
+  padding:18px;
 }
 
-header h1{
+.header{
+  text-align:center;
+  padding:18px 8px 12px;
+}
+
+.header h1{
   margin:0;
   color:#d81b60;
-  font-size:28px;
-  line-height:1.2;
+  font-size:27px;
+  line-height:1.15;
 }
 
-.subtitle{
-  margin-top:10px;
-  color:#777;
-  font-size:15px;
-}
-
-.score-card{
-  background:white;
-  margin:10px 16px 18px;
-  padding:20px;
-  border-radius:25px;
-  text-align:center;
-  box-shadow:0 5px 20px rgba(180,80,130,.12);
-}
-
-.score-title{
-  color:#777;
+.header p{
+  color:#666;
+  margin:10px 0 0;
   font-size:14px;
 }
 
-.total-score{
-  color:#d81b60;
-  font-size:38px;
+.scoreBox{
+  background:rgba(255,255,255,.85);
+  border-radius:24px;
+  padding:22px;
+  text-align:center;
+  box-shadow:0 8px 30px rgba(190,70,130,.12);
+  margin-bottom:18px;
+}
+
+.scoreTitle{
+  font-size:15px;
+  color:#777;
+}
+
+.score{
+  font-size:42px;
   font-weight:bold;
-  margin:5px;
+  color:#d81b60;
+  margin:5px 0;
 }
 
 .progress{
+  width:100%;
   height:10px;
-  background:#f5d5e4;
+  background:#f3d5e1;
   border-radius:20px;
   overflow:hidden;
-  margin-top:12px;
+  margin-top:14px;
 }
 
-.progress-bar{
+.progressBar{
   height:100%;
   width:0%;
-  background:linear-gradient(90deg,#ff80ab,#d81b60);
-  transition:.4s;
+  background:linear-gradient(90deg,#ec407a,#ab47bc);
+  transition:.5s;
+}
+
+.timerBox{
+  background:#fff;
+  border-radius:20px;
+  padding:16px;
+  text-align:center;
+  margin-bottom:18px;
+  box-shadow:0 5px 20px rgba(0,0,0,.07);
+}
+
+.timer{
+  color:#d81b60;
+  font-size:24px;
+  font-weight:bold;
 }
 
 .days{
   display:flex;
-  gap:8px;
   overflow-x:auto;
-  padding:8px 16px 16px;
+  gap:8px;
+  padding:4px 2px 15px;
+  scrollbar-width:none;
 }
 
-.day-btn{
-  flex:none;
+.days::-webkit-scrollbar{
+  display:none;
+}
+
+.dayBtn{
   border:0;
-  background:white;
-  padding:10px 14px;
-  border-radius:18px;
-  color:#777;
+  min-width:70px;
+  padding:11px 10px;
+  border-radius:15px;
+  background:#eee;
+  color:#888;
   font-weight:bold;
-  box-shadow:0 3px 10px rgba(0,0,0,.07);
 }
 
-.day-btn.active{
-  background:#e91e63;
+.dayBtn.active{
+  background:#ec407a;
   color:white;
 }
 
-.day-btn.locked{
-  opacity:.45;
+.dayBtn.done{
+  background:#81c784;
+  color:white;
+}
+
+.dayBtn.locked{
+  background:#e7e7e7;
+  color:#aaa;
 }
 
 .content{
-  padding:0 16px 40px;
+  display:none;
 }
 
-.day-title{
+.content.active{
+  display:block;
+}
+
+.card{
+  background:rgba(255,255,255,.93);
+  border-radius:25px;
+  padding:20px;
+  margin-bottom:16px;
+  box-shadow:0 7px 25px rgba(150,70,120,.1);
+}
+
+.dayTitle{
   color:#d81b60;
-  font-size:25px;
+  font-size:23px;
+  font-weight:bold;
   margin-bottom:5px;
 }
 
-.day-subtitle{
-  color:#888;
-  margin-bottom:20px;
+.questionNumber{
+  color:#999;
+  font-size:13px;
+  margin-bottom:8px;
 }
 
 .question{
-  background:white;
-  padding:20px;
-  border-radius:22px;
-  margin-bottom:16px;
-  box-shadow:0 4px 15px rgba(150,60,100,.09);
-}
-
-.question h3{
-  margin-top:0;
-  color:#444;
   font-size:17px;
+  font-weight:bold;
+  line-height:1.4;
+  margin-bottom:14px;
 }
 
 .option{
   display:block;
-  padding:12px;
+  padding:13px;
   margin:8px 0;
+  border:2px solid #f1d6e2;
   border-radius:14px;
-  background:#fff4f8;
-  border:1px solid #f7d4e2;
   cursor:pointer;
+  background:#fff;
+}
+
+.option:hover{
+  background:#fff3f8;
 }
 
 .option input{
@@ -149,8 +188,8 @@ header h1{
 
 textarea{
   width:100%;
-  min-height:110px;
-  border:1px solid #efc7d8;
+  min-height:100px;
+  border:2px solid #f1d6e2;
   border-radius:15px;
   padding:13px;
   font-size:15px;
@@ -159,160 +198,194 @@ textarea{
 }
 
 textarea:focus{
-  border-color:#e91e63;
+  border-color:#ec407a;
 }
 
-.task-box{
-  background:linear-gradient(135deg,#fff0f6,#ffe4ef);
-  border:2px dashed #ec76a5;
+.task{
+  background:#fff7fb;
+  border:2px dashed #ec8db0;
+  border-radius:18px;
+  padding:16px;
 }
 
-.task-check{
+.task label{
   display:flex;
-  align-items:center;
   gap:10px;
-  font-size:16px;
+  align-items:flex-start;
   font-weight:bold;
+  line-height:1.4;
 }
 
-.task-check input{
-  width:22px;
-  height:22px;
+.task input{
+  width:20px;
+  height:20px;
 }
 
-.submit-btn{
+.media{
+  margin:15px 0;
+  border-radius:20px;
+  overflow:hidden;
+  background:#f7e8ef;
+}
+
+.media video,
+.media img{
+  width:100%;
+  display:block;
+  max-height:420px;
+  object-fit:cover;
+}
+
+button.mainBtn{
   width:100%;
   border:0;
+  border-radius:18px;
   padding:16px;
-  border-radius:20px;
-  background:#e91e63;
+  background:linear-gradient(90deg,#ec407a,#d81b60);
   color:white;
   font-size:17px;
   font-weight:bold;
-  box-shadow:0 6px 15px rgba(233,30,99,.25);
+  cursor:pointer;
+  box-shadow:0 6px 18px rgba(216,27,96,.2);
 }
 
-.submit-btn:disabled{
-  background:#bbb;
+button.mainBtn:active{
+  transform:scale(.98);
 }
 
 .result{
   display:none;
+  margin-top:18px;
   background:white;
-  margin-top:20px;
-  padding:24px;
-  border-radius:24px;
+  border-radius:22px;
+  padding:20px;
   text-align:center;
-  box-shadow:0 5px 20px rgba(180,80,130,.13);
+  box-shadow:0 5px 20px rgba(0,0,0,.08);
 }
 
-.result-score{
-  font-size:42px;
+.result.show{
+  display:block;
+}
+
+.resultScore{
+  font-size:40px;
   font-weight:bold;
   color:#d81b60;
 }
 
-.answer-review{
-  text-align:left;
-  margin-top:20px;
-}
-
-.review{
-  padding:14px;
+.feedback{
+  font-size:18px;
+  font-weight:bold;
   margin:10px 0;
-  border-radius:15px;
 }
 
-.correct{
-  background:#e9f9ee;
-  border-left:5px solid #35a853;
-}
-
-.wrong{
-  background:#fff0f0;
-  border-left:5px solid #ea4335;
-}
-
-.timer-box{
-  background:#fff3cd;
-  padding:18px;
-  border-radius:18px;
-  text-align:center;
+.answerBox{
+  text-align:left;
   margin-top:18px;
 }
 
-.timer{
-  font-size:25px;
-  font-weight:bold;
-  color:#c77800;
+.answerItem{
+  padding:12px;
+  border-radius:14px;
+  margin:8px 0;
+  font-size:14px;
 }
 
-.next-btn{
-  border:0;
-  margin-top:15px;
-  padding:13px 22px;
-  border-radius:18px;
-  background:#d81b60;
-  color:white;
-  font-weight:bold;
+.correct{
+  background:#e8f5e9;
+  border-left:5px solid #43a047;
 }
 
-.final{
+.wrong{
+  background:#ffebee;
+  border-left:5px solid #e53935;
+}
+
+.lockedScreen{
   text-align:center;
-  padding:35px 20px;
+  padding:35px 15px;
 }
 
-.final h2{
+.lockIcon{
+  font-size:50px;
+}
+
+.lockedScreen h2{
   color:#d81b60;
-  font-size:30px;
 }
 
-.hidden{
+.finalBox{
   display:none;
+  text-align:center;
+  background:linear-gradient(135deg,#fff,#ffe4ef);
+  border-radius:25px;
+  padding:30px 20px;
+  margin-top:20px;
+}
+
+.finalBox.show{
+  display:block;
+}
+
+.finalScore{
+  font-size:52px;
+  color:#d81b60;
+  font-weight:bold;
 }
 
 .small{
-  font-size:13px;
   color:#888;
+  font-size:13px;
 }
 
-@media(max-width:500px){
-  header h1{
-    font-size:25px;
-  }
+.photoCaption{
+  text-align:center;
+  padding:10px;
+  color:#777;
+  font-size:13px;
+}
 
-  .question{
-    padding:17px;
-  }
+.hidden{
+  display:none!important;
 }
 </style>
 </head>
 
 <body>
 
-<div class="app">
+<div class="container">
 
-<header>
-  <h1>💗 VISMAYA'S BOREDOM BREAKER 💗</h1>
-  <div class="subtitle">
-    15 days • 5 challenges every day • friendship chaos 😂
-  </div>
+<header class="header">
+  <h1>💗 VISMAYA'S BOREDOM<br>BREAKER 💗</h1>
+  <p>15 days • 5 challenges every day • friendship chaos 😂</p>
 </header>
 
-<div class="score-card">
-  <div class="score-title">🏆 TOTAL SCORE</div>
-  <div class="total-score" id="totalScore">0 / 75</div>
-  <div class="small" id="scoreMessage">
-    Your boredom-breaking journey starts now 💗
-  </div>
+<div class="scoreBox">
+  <div class="scoreTitle">🏆 TOTAL SCORE</div>
+  <div class="score"><span id="totalScore">0</span> / 75</div>
+  <div id="scoreMessage">Your boredom-breaking journey starts now 💗</div>
   <div class="progress">
-    <div class="progress-bar" id="progressBar"></div>
+    <div class="progressBar" id="progressBar"></div>
   </div>
 </div>
 
-<div class="days" id="daysNav"></div>
+<div class="timerBox" id="timerBox">
+  <div>⏰ Next challenge unlocks in</div>
+  <div class="timer" id="timer">--:--:--</div>
+  <div class="small">Complete today's challenge to start the countdown.</div>
+</div>
 
-<div class="content" id="content"></div>
+<div class="days" id="days"></div>
+
+<div id="app"></div>
+
+<div class="finalBox" id="finalBox">
+  <div>🎉🎉🎉</div>
+  <h2>YOU SURVIVED ALL 15 DAYS!</h2>
+  <div class="finalScore"><span id="finalScore">0</span> / 75</div>
+  <p id="finalMessage"></p>
+  <p>💗 Friendship Studies officially completed.</p>
+</div>
 
 </div>
 
@@ -320,1422 +393,610 @@ textarea:focus{
 
 /* =========================================================
    VISMAYA'S BOREDOM BREAKER
-   15 DAYS × 5 MARKS = 75 MARKS
+   15 DAYS × 5 MARKS = 75
    ========================================================= */
 
-const DAYS = [
+const STORAGE_KEY = "vismaya_boredom_breaker_v4";
 
-/* ================= DAY 1 ================= */
+const state = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {
+  scores: {},
+  completed: {},
+  answers: {},
+  unlockTime: null
+};
+
+/* ---------------------------------------------------------
+   15 DAYS OF QUESTIONS
+   Each day:
+   Q1 = MCQ
+   Q2 = MCQ
+   Q3 = descriptive
+   Q4 = descriptive
+   Q5 = task
+   --------------------------------------------------------- */
+
+const days = [
 
 {
-title:"Day 1 🌸",
+day:1,
+media:{
+type:"video",
+src:"day1-video.mp4"
+},
 questions:[
-
 {
 type:"mcq",
-q:"Which friend is most likely to turn a normal phone call into a full relationship conference? 😂",
+q:"Who is most likely to disappear into her phone and suddenly remember that other humans exist?",
 options:["Angel","Adithya","Meharoofa","Pavithra"],
-answer:"Angel"
+answer:0
 },
-
 {
 type:"mcq",
-q:"Who is most associated with loving cows, birds and hens and dreaming about becoming a farmer? 🐄😂",
+q:"Who is most associated with wanting a peaceful farmer life surrounded by cows, birds and hens?",
 options:["Angel","Adithya","Meharoofa","Pavithra"],
-answer:"Adithya"
+answer:1
 },
-
 {
 type:"text",
-q:"Describe Pavithra in one funny sentence as if you are writing a nursing case study about her. 👩‍⚕️😂",
-keywords:["mature","study","studious","scold","teach","elder"]
+q:"Describe Angel's most predictable behaviour when she gets too comfortable. Write it like you are exposing her in court 😂",
+keywords:["phone","cot","boyfriend","lie","lying"]
 },
-
 {
 type:"text",
-q:"Vismaya's own relationship-studies question: What did you eat today? Give us the full food report like a hospital diet chart. 🍛😂",
-flexible:true
+q:"Vismaya diary entry: What is the funniest thing you have done or thought today while staying at home?",
+keywords:["home","today"]
 },
-
 {
 type:"task",
-q:"TODAY'S TASK 🎯: Take a cute selfie from home and give yourself a dramatic movie-style title.",
-task:"Take the selfie + choose your dramatic title."
+q:"TASK: Give yourself a ridiculous title for surviving Day 1 and write it somewhere. Example: 'CEO of Doing Absolutely Nothing.'"
 }
-
 ]
 },
 
-/* ================= DAY 2 ================= */
-
 {
-title:"Day 2 💕",
+day:2,
+media:{
+type:"video",
+src:"day2-video.mp4"
+},
 questions:[
-
 {
 type:"mcq",
-q:"Who can be found comfortably lying on the cot while the rest of the world continues its business? 😂",
-options:["Angel","Adithya","Meharoofa","Pavithra"],
-answer:"Angel"
+q:"Who is most likely to become emotional during a situation that did not require tears?",
+options:["Adithya","Angel","Meharoofa","Pavithra"],
+answer:0
 },
-
 {
 type:"mcq",
-q:"Who is most likely to become emotional first during a small argument? 😭",
-options:["Angel","Adithya","Meharoofa","Pavithra"],
-answer:"Adithya"
+q:"Who is known for having a loud voice and a very short route from calm to angry?",
+options:["Angel","Pavithra","Meharoofa","Adithya"],
+answer:2
 },
-
 {
 type:"text",
-q:"Write a funny two-line description of Meharoofa's personality. Include her voice, anger or her famous 'aachi' connection. 😂",
-keywords:["hair","voice","angry","anger","aachi","loud","bf"]
+q:"Write a funny description of what Adithya would probably be doing at the hostel right now.",
+keywords:["call","phone","boyfriend","cow","bird","hen"]
 },
-
 {
 type:"text",
-q:"If your current mood was a nursing diagnosis, what would it be? Write it dramatically. 😂",
-flexible:true
+q:"What is one thing about yourself that you think your hostel friends would immediately recognise?",
+keywords:["friend","hostel"]
 },
-
 {
 type:"task",
-q:"TODAY'S TASK 🎯: Make a paper heart, write one nice thing about each of the four friends and keep it somewhere safe.",
-task:"Complete the friendship heart."
+q:"TASK: Make your most dramatic facial expression in the mirror for 10 seconds. No cheating."
 }
-
 ]
 },
 
-/* ================= DAY 3 ================= */
-
 {
-title:"Day 3 🌷",
+day:3,
+media:{
+type:"image",
+src:"day3-photo.jpg"
+},
 questions:[
-
 {
 type:"mcq",
-q:"Who is most likely to be busy calling her boyfriend when everyone else is waiting? 📱😂",
-options:["Angel","Adithya","Meharoofa","Pavithra"],
-answer:"Adithya"
+q:"Who would most likely give everyone advice and then scold them for not following it?",
+options:["Angel","Pavithra","Adithya","Meharoofa"],
+answer:1
 },
-
 {
 type:"mcq",
-q:"Who is the unofficial 'teacher + elder sister + scolding department' of the group? 📚😂",
-options:["Angel","Adithya","Meharoofa","Pavithra"],
-answer:"Pavithra"
+q:"Which person is most likely to have a relationship-related story ready at any random moment?",
+options:["Angel","Pavithra","Adithya","Meharoofa"],
+answer:0
 },
-
 {
 type:"text",
-q:"Choose ONE friend and describe what makes her completely impossible to replace in your group.",
-keywords:["angel","adithya","meharoofa","pavithra","friend","special","unique","love"]
+q:"Look at today's photo. Give the two people in it a completely unnecessary movie title 😂",
+keywords:["movie","title"]
 },
-
 {
 type:"text",
-q:"Give yourself a funny review of today's home life. Write at least two sentences. 🏠😂",
-flexible:true
+q:"Tell us what you ate today, but describe it like you are reviewing a five-star restaurant.",
+keywords:["ate","food","breakfast","lunch","dinner","meal"]
 },
-
 {
 type:"task",
-q:"TODAY'S TASK 🎯: Find the funniest object near you and give it a ridiculous name.",
-task:"Choose an object and give it a ridiculous name."
+q:"TASK: Take a random object near you and give it a human name."
 }
-
 ]
 },
 
-/* ================= DAY 4 ================= */
-
 {
-title:"Day 4 🦋",
+day:4,
 questions:[
-
 {
 type:"mcq",
-q:"Which friend has a personality that can be described as 'relationship roller coaster'? 🎢",
-options:["Angel","Adithya","Meharoofa","Pavithra"],
-answer:"Angel"
+q:"Who would probably turn a normal hostel conversation into a full-length discussion?",
+options:["Meharoofa","Angel","Adithya","Pavithra"],
+answer:3
 },
-
 {
 type:"mcq",
-q:"Who would probably be happiest surrounded by farm animals? 🐄🐔",
-options:["Angel","Adithya","Meharoofa","Pavithra"],
-answer:"Adithya"
+q:"Who has the strongest connection with the word 'aachi' in our friendship universe?",
+options:["Pavithra","Meharoofa","Angel","Adithya"],
+answer:1
 },
-
 {
 type:"text",
-q:"Write a fake newspaper headline about the four hostel friends doing something chaotic.",
-keywords:["hostel","angel","adithya","meharoofa","pavithra","chaos","chaotic"]
-},
-
-{
-type:"text",
-q:"What is one thing you miss most about being with everyone at the hostel? 💗",
-flexible:true
-},
-
-{
-type:"task",
-q:"TODAY'S TASK 🎯: Make a tiny drawing of the five of you without using words.",
-task:"Draw the five-friend squad."
-}
-
-]
-},
-
-/* ================= DAY 5 ================= */
-
-{
-title:"Day 5 🌸",
-questions:[
-
-{
-type:"mcq",
-q:"Who is most likely to have a loud voice that can probably be heard from another room? 📢😂",
-options:["Angel","Adithya","Meharoofa","Pavithra"],
-answer:"Meharoofa"
-},
-
-{
-type:"mcq",
-q:"Who is most likely to give everyone a serious lecture when they are doing something silly? 😌",
-options:["Angel","Adithya","Meharoofa","Pavithra"],
-answer:"Pavithra"
-},
-
-{
-type:"text",
-q:"If Angel, Adithya, Meharoofa and Pavithra formed a nursing ward team, assign each of them a funny job.",
+q:"If all four hostel friends suddenly entered your room, who would create the most chaos and why?",
 keywords:["angel","adithya","meharoofa","pavithra"]
 },
-
 {
 type:"text",
-q:"Write a funny 'patient progress note' about yourself today. 😂",
-flexible:true
+q:"Describe your current mood using only a funny comparison.",
+keywords:["like","because"]
 },
-
 {
 type:"task",
-q:"TODAY'S TASK 🎯: Send yourself a voice note saying 'I am absolutely not bored' in the most dramatic way possible.",
-task:"Record the dramatic voice note."
+q:"TASK: Send yourself a motivational message and read it aloud dramatically."
 }
-
 ]
 },
 
-/* ================= DAY 6 ================= */
-
 {
-title:"Day 6 💗",
+day:5,
 questions:[
-
 {
 type:"mcq",
-q:"Who is most likely to make a phone conversation last much longer than planned? 📱",
+q:"Who would most likely be busy on a phone call while everyone else is waiting?",
 options:["Angel","Adithya","Meharoofa","Pavithra"],
-answer:"Angel"
+answer:0
 },
-
 {
 type:"mcq",
-q:"Who would most likely choose a farm over a fancy city lifestyle? 🌾",
-options:["Angel","Adithya","Meharoofa","Pavithra"],
-answer:"Adithya"
+q:"Who is most likely to get angry loudly enough for everyone nearby to know?",
+options:["Adithya","Meharoofa","Angel","Pavithra"],
+answer:1
 },
-
 {
 type:"text",
-q:"Write a funny friendship equation involving all four hostel friends.",
+q:"Imagine the hostel has a Friendship Parliament. What ridiculous ministry should each of your four friends handle?",
 keywords:["angel","adithya","meharoofa","pavithra"]
 },
-
 {
 type:"text",
-q:"What is the most random thing you have done today? Tell the story. 😂",
-flexible:true
+q:"Give yourself a funny report card for today's activities.",
+keywords:["today"]
 },
-
 {
 type:"task",
-q:"TODAY'S TASK 🎯: Find an old photo of the five of you and give it a ridiculous caption.",
-task:"Find an old group photo and caption it."
+q:"TASK: Walk around your room like you are entering a fashion show."
 }
-
 ]
 },
 
-/* ================= DAY 7 ================= */
-
 {
-title:"Day 7 ✨",
+day:6,
 questions:[
-
 {
 type:"mcq",
-q:"Who is most likely to get angry loudly but still be loved by everyone? 😂",
-options:["Angel","Adithya","Meharoofa","Pavithra"],
-answer:"Meharoofa"
+q:"Who is most likely to give a lecture after everyone has made a silly decision?",
+options:["Pavithra","Angel","Adithya","Meharoofa"],
+answer:0
 },
-
 {
 type:"mcq",
-q:"Who is most likely to turn into the group's unofficial lecturer? 📚",
-options:["Angel","Adithya","Meharoofa","Pavithra"],
-answer:"Pavithra"
+q:"Who would be most excited by the idea of spending a whole day around farm animals?",
+options:["Meharoofa","Adithya","Angel","Pavithra"],
+answer:1
 },
-
 {
 type:"text",
-q:"Describe the four hostel friends as if they are characters in a comedy movie.",
-keywords:["angel","adithya","meharoofa","pavithra","comedy"]
-},
-
-{
-type:"text",
-q:"Give today's home situation a movie title. 🎬😂",
-flexible:true
-},
-
-{
-type:"task",
-q:"TODAY'S TASK 🎯: Make a 10-second dance or silly movement and perform it privately.",
-task:"Complete your tiny private performance."
-}
-
-]
-},
-
-/* ================= DAY 8 ================= */
-
-{
-title:"Day 8 🌺",
-questions:[
-
-{
-type:"mcq",
-q:"Who is known for being the more mature/studious one of the gang? 📖",
-options:["Angel","Adithya","Meharoofa","Pavithra"],
-answer:"Pavithra"
-},
-
-{
-type:"mcq",
-q:"Who is most likely to have a conversation that somehow reaches boyfriend-related topics? 😂",
-options:["Angel","Adithya","Meharoofa","Pavithra"],
-answer:"Angel"
-},
-
-{
-type:"text",
-q:"Write a fake group-chat conversation between Angel, Adithya, Meharoofa and Pavithra.",
+q:"If your four friends became characters in a comedy movie, what would each person's role be?",
 keywords:["angel","adithya","meharoofa","pavithra"]
 },
-
 {
 type:"text",
-q:"Write three things that made you smile today. 😊",
-flexible:true
+q:"What is one tiny thing that made you smile today?",
+keywords:["today"]
 },
-
 {
 type:"task",
-q:"TODAY'S TASK 🎯: Create a new funny nickname for yourself.",
-task:"Choose your new nickname."
+q:"TASK: Find the funniest-looking object in your room and give it an award."
 }
-
 ]
 },
 
-/* ================= DAY 9 ================= */
-
 {
-title:"Day 9 💞",
+day:7,
 questions:[
-
 {
 type:"mcq",
-q:"Who would probably know the latest relationship-related gossip? 👀",
-options:["Angel","Adithya","Meharoofa","Pavithra"],
-answer:"Angel"
+q:"Who would most likely spend a suspicious amount of time lying comfortably somewhere?",
+options:["Angel","Meharoofa","Adithya","Pavithra"],
+answer:0
 },
-
 {
 type:"mcq",
-q:"Who is most likely to cry first during an emotional situation? 🥹",
-options:["Angel","Adithya","Meharoofa","Pavithra"],
-answer:"Adithya"
+q:"Who is most likely to become the unofficial teacher of the friend group?",
+options:["Adithya","Angel","Pavithra","Meharoofa"],
+answer:2
 },
-
 {
 type:"text",
-q:"Write a funny award ceremony for the four hostel friends. Give each one a different award.",
-keywords:["angel","adithya","meharoofa","pavithra","award"]
+q:"Write one sentence that perfectly describes the chaos level of your friend group.",
+keywords:["friend","chaos"]
 },
-
 {
 type:"text",
-q:"Describe today's mood using only funny comparisons. 😂",
-flexible:true
+q:"If you could order one completely unnecessary thing right now, what would it be and why?",
+keywords:["because","order"]
 },
-
 {
 type:"task",
-q:"TODAY'S TASK 🎯: Rearrange three things in your room and declare that you have renovated the house.",
-task:"Complete your mini renovation."
+q:"TASK: Spend one minute pretending you are a news reporter describing your own room."
 }
-
 ]
 },
 
-/* ================= DAY 10 ================= */
-
 {
-title:"Day 10 🌸",
+day:8,
 questions:[
-
 {
 type:"mcq",
-q:"Who is most likely to be associated with a strong/loud voice? 📢",
-options:["Angel","Adithya","Meharoofa","Pavithra"],
-answer:"Meharoofa"
+q:"Who is most likely to have relationship drama ready as breaking news?",
+options:["Angel","Pavithra","Meharoofa","Adithya"],
+answer:0
 },
-
 {
 type:"mcq",
-q:"Who is most likely to teach the others something instead of simply letting them figure it out? 😂",
-options:["Angel","Adithya","Meharoofa","Pavithra"],
-answer:"Pavithra"
+q:"Who would probably scold the group and then secretly help everyone anyway?",
+options:["Adithya","Pavithra","Angel","Meharoofa"],
+answer:1
 },
-
 {
 type:"text",
-q:"Imagine the four hostel friends are nursing diagnoses. Give each one a hilarious diagnosis.",
+q:"Describe the most chaotic possible hostel evening involving Angel, Adithya and Meharoofa.",
+keywords:["angel","adithya","meharoofa"]
+},
+{
+type:"text",
+q:"Give today's boring moment a dramatic movie scene description.",
+keywords:["today"]
+},
+{
+type:"task",
+q:"TASK: Create a new nickname for yourself and use it for the rest of today."
+}
+]
+},
+
+{
+day:9,
+questions:[
+{
+type:"mcq",
+q:"Who would most likely have a sudden emotional reaction to something small?",
+options:["Adithya","Meharoofa","Angel","Pavithra"],
+answer:0
+},
+{
+type:"mcq",
+q:"Who is most likely to turn a normal discussion into a very detailed explanation?",
+options:["Angel","Pavithra","Meharoofa","Adithya"],
+answer:1
+},
+{
+type:"text",
+q:"Imagine the four hostel friends are opening a business together. What would each one be responsible for?",
 keywords:["angel","adithya","meharoofa","pavithra"]
 },
-
 {
 type:"text",
-q:"Give yourself a five-star review for surviving another day at home. ⭐",
-flexible:true
+q:"Describe today's meal as if you are a brutally honest food critic.",
+keywords:["food","meal","today"]
 },
-
 {
 type:"task",
-q:"TODAY'S TASK 🎯: Write one sentence beginning with 'If my friends were here right now...' and finish it dramatically.",
-task:"Complete your sentence."
+q:"TASK: Make up a completely useless invention and give it a name."
 }
-
 ]
 },
 
-/* ================= DAY 11 ================= */
-
 {
-title:"Day 11 🩷",
+day:10,
 questions:[
-
 {
 type:"mcq",
-q:"Who is most likely to spend a peaceful moment lying on the cot? 😌",
-options:["Angel","Adithya","Meharoofa","Pavithra"],
-answer:"Angel"
+q:"Who is most likely to be associated with a very loud reaction?",
+options:["Meharoofa","Angel","Adithya","Pavithra"],
+answer:0
 },
-
 {
 type:"mcq",
-q:"Who would most happily spend an afternoon talking about cows, birds or hens? 🐄",
-options:["Angel","Adithya","Meharoofa","Pavithra"],
-answer:"Adithya"
+q:"Who is most likely to be found discussing a future farm-life dream?",
+options:["Angel","Adithya","Pavithra","Meharoofa"],
+answer:1
 },
-
 {
 type:"text",
-q:"Write a short comedy scene where all four hostel friends meet after a long day.",
-keywords:["angel","adithya","meharoofa","pavithra","hostel"]
+q:"Write a fake hostel announcement that would make all four friends panic.",
+keywords:["hostel"]
 },
-
 {
 type:"text",
-q:"What is one thing you would tell your four friends if they suddenly appeared at your door? 💗",
-flexible:true
+q:"What would you tell your four friends if they suddenly appeared at your house?",
+keywords:["friends"]
 },
-
 {
 type:"task",
-q:"TODAY'S TASK 🎯: Make the funniest facial expression you can in the mirror.",
-task:"Complete your mirror challenge."
+q:"TASK: Make a five-second celebration dance because you completed another day."
 }
-
 ]
 },
 
-/* ================= DAY 12 ================= */
-
 {
-title:"Day 12 🌷",
+day:11,
 questions:[
-
 {
 type:"mcq",
-q:"Who is most likely to have a strong connection with 'aachi'? 😂",
-options:["Angel","Adithya","Meharoofa","Pavithra"],
-answer:"Meharoofa"
+q:"Who is most likely to be the group's unofficial advice department?",
+options:["Angel","Meharoofa","Pavithra","Adithya"],
+answer:2
 },
-
 {
 type:"mcq",
-q:"Who is most likely to be the group's responsible/studious elder? 📚",
+q:"Who is most likely to be completely absorbed in a phone conversation?",
 options:["Angel","Adithya","Meharoofa","Pavithra"],
-answer:"Pavithra"
+answer:0
 },
-
 {
 type:"text",
-q:"Write a funny 'relationship studies syllabus' containing one chapter for each of the four hostel friends.",
-keywords:["angel","adithya","meharoofa","pavithra","relationship"]
-},
-
-{
-type:"text",
-q:"What would today's chapter of 'Vismaya's Home Life' be called? 😂",
-flexible:true
-},
-
-{
-type:"task",
-q:"TODAY'S TASK 🎯: Make yourself a tiny certificate saying 'Certified Boredom Survivor'.",
-task:"Create your boredom survivor certificate."
-}
-
-]
-},
-
-/* ================= DAY 13 ================= */
-
-{
-title:"Day 13 🦋",
-questions:[
-
-{
-type:"mcq",
-q:"Who is most likely to turn an ordinary day into a relationship discussion? 💬",
-options:["Angel","Adithya","Meharoofa","Pavithra"],
-answer:"Angel"
-},
-
-{
-type:"mcq",
-q:"Who is most likely to become a farmer if given the chance? 🌾",
-options:["Angel","Adithya","Meharoofa","Pavithra"],
-answer:"Adithya"
-},
-
-{
-type:"text",
-q:"Imagine all four hostel friends are professors. What subject would each one teach?",
+q:"Give each of your four friends a funny superpower based on their personality.",
 keywords:["angel","adithya","meharoofa","pavithra"]
 },
-
 {
 type:"text",
-q:"Write a funny prediction about what you will be doing tomorrow.",
-flexible:true
+q:"Write a funny one-line biography of yourself for today.",
+keywords:["today"]
 },
-
 {
 type:"task",
-q:"TODAY'S TASK 🎯: Pick one random household item and pretend it is your best friend for five minutes.",
-task:"Complete the random household friendship."
+q:"TASK: Look at yourself in the mirror and say: 'I am clearly the main character.'"
 }
-
 ]
 },
 
-/* ================= DAY 14 ================= */
-
 {
-title:"Day 14 💕",
+day:12,
 questions:[
-
 {
 type:"mcq",
-q:"Who is most likely to be the first person called when somebody needs a serious study-related explanation? 📚",
-options:["Angel","Adithya","Meharoofa","Pavithra"],
-answer:"Pavithra"
+q:"Who would most likely react dramatically before knowing the full story?",
+options:["Adithya","Angel","Meharoofa","Pavithra"],
+answer:0
 },
-
 {
 type:"mcq",
-q:"Who is most likely to bring maximum volume to the hostel? 😂📢",
-options:["Angel","Adithya","Meharoofa","Pavithra"],
-answer:"Meharoofa"
+q:"Who is most likely to have the confidence to lecture everyone?",
+options:["Pavithra","Angel","Adithya","Meharoofa"],
+answer:0
 },
-
 {
 type:"text",
-q:"Write the final hostel friendship report card for Angel, Adithya, Meharoofa and Pavithra.",
+q:"Create a fake group-chat conversation between Angel, Adithya, Meharoofa and Pavithra about a completely silly problem.",
 keywords:["angel","adithya","meharoofa","pavithra"]
 },
-
 {
 type:"text",
-q:"Describe your ideal reunion with everyone after this whole boredom-breaker journey. 💗",
-flexible:true
+q:"What is the funniest thing about being stuck at home for you?",
+keywords:["home"]
 },
-
 {
 type:"task",
-q:"TODAY'S TASK 🎯: Write one secret message to your future self and save it.",
-task:"Write and save your future-self message."
+q:"TASK: Find something pink around you and pose with it like it is a luxury product."
 }
-
 ]
 },
 
-/* ================= DAY 15 ================= */
-
 {
-title:"Day 15 🏆",
+day:13,
 questions:[
-
 {
 type:"mcq",
-q:"After surviving 15 days of friendship studies, who is most likely to give everyone a final lecture? 😂",
-options:["Angel","Adithya","Meharoofa","Pavithra"],
-answer:"Pavithra"
+q:"Who is most likely to combine confidence with a good lecture?",
+options:["Pavithra","Angel","Meharoofa","Adithya"],
+answer:0
 },
-
 {
 type:"mcq",
-q:"Who is most likely to disappear into a relationship-related phone conversation during the reunion? 📱😂",
-options:["Angel","Adithya","Meharoofa","Pavithra"],
-answer:"Angel"
+q:"Who would most likely choose farm life over city chaos?",
+options:["Meharoofa","Adithya","Angel","Pavithra"],
+answer:1
 },
-
 {
 type:"text",
-q:"Write your final friendship review of Angel, Adithya, Meharoofa and Pavithra. Mention something funny about each.",
+q:"If the four hostel friends went on a trip together, who would be responsible for what?",
 keywords:["angel","adithya","meharoofa","pavithra"]
 },
-
 {
 type:"text",
-q:"FINAL VISMAYA QUESTION 💗: What did these 15 days teach you about yourself, boredom and friendship?",
-flexible:true
+q:"Write a dramatic headline about your day.",
+keywords:["day"]
+},
+{
+type:"task",
+q:"TASK: Invent a ridiculous rule that everyone in your friend group must follow tomorrow."
+}
+]
 },
 
 {
+day:14,
+questions:[
+{
+type:"mcq",
+q:"Who is most likely to have a phone-related distraction during an important conversation?",
+options:["Angel","Pavithra","Meharoofa","Adithya"],
+answer:0
+},
+{
+type:"mcq",
+q:"Who is most likely to be the first person to notice that everyone is behaving foolishly?",
+options:["Angel","Adithya","Pavithra","Meharoofa"],
+answer:2
+},
+{
+type:"text",
+q:"Write a friendship award for each of your four friends. Make the awards ridiculous.",
+keywords:["angel","adithya","meharoofa","pavithra"]
+},
+{
+type:"text",
+q:"What is one thing you are looking forward to doing when you are back with everyone?",
+keywords:["friends"]
+},
+{
 type:"task",
-q:"FINAL TASK 🏆: Give yourself a dramatic victory speech for surviving all 15 days.",
-task:"Deliver your final victory speech!"
+q:"TASK: Create your own victory pose and hold it for five seconds."
 }
+]
+},
 
+{
+day:15,
+questions:[
+{
+type:"mcq",
+q:"After 15 days of friendship chaos, who deserves an award for giving the most advice?",
+options:["Pavithra","Angel","Adithya","Meharoofa"],
+answer:0
+},
+{
+type:"mcq",
+q:"Which combination best describes this entire friendship group?",
+options:[
+"Peaceful and silent",
+"Organised and serious",
+"Chaotic, dramatic and unforgettable",
+"Nobody talks to anybody"
+],
+answer:2
+},
+{
+type:"text",
+q:"Write a final friendship message to Angel, Adithya, Meharoofa and Pavithra. Make it funny but genuinely sweet.",
+keywords:["friend","love","miss","thank"]
+},
+{
+type:"text",
+q:"Final Vismaya question: What was your favourite part of this 15-day boredom-breaking journey?",
+keywords:["favourite","favorite"]
+},
+{
+type:"task",
+q:"FINAL TASK: Give yourself a dramatic standing ovation. YOU MADE IT THROUGH ALL 15 DAYS! 👏😂"
+}
 ]
 }
 
 ];
 
+/* ---------------------------------------------------------
+   SOUND ENGINE
+   Uses browser Web Audio API.
+   No sound files required.
+   --------------------------------------------------------- */
 
-/* =========================================================
-   SCORE & PROGRESS SYSTEM
-   ========================================================= */
+let audioContext;
 
-let totalScore = Number(localStorage.getItem("vismayaTotalScore") || 0);
-let completedDays = JSON.parse(
-  localStorage.getItem("vismayaCompletedDays") || "[]"
-);
+function sound(freq, duration, type="sine", volume=.08){
+  try{
+    audioContext = audioContext || new (window.AudioContext || window.webkitAudioContext)();
 
-let currentDay = Number(
-  localStorage.getItem("vismayaCurrentDay") || 1
-);
+    const oscillator = audioContext.createOscillator();
+    const gain = audioContext.createGain();
 
-let unlockTime = Number(
-  localStorage.getItem("vismayaUnlockTime") || 0
-);
+    oscillator.type = type;
+    oscillator.frequency.value = freq;
 
-let submittedThisSession = false;
-
-
-/* =========================================================
-   FUNNY SCORE MESSAGES
-   ========================================================= */
-
-const scoreMessages = {
-
-0:"ZERO?! 😭 Vismaya... relationship studies has officially failed you. Please revise! 😂",
-
-1:"Very bad Vismaya 😭 Why like this?! One tiny mark is hiding somewhere in this disaster. 😂",
-
-2:"Okayyy... 2/5. At least the brain has started loading. Keep going! 😂",
-
-3:"Hmm 3/5! Not bad madam! The academic department is slightly impressed. 😌📚",
-
-4:"OHHH 4/5! Look who suddenly became the topper! 👀🔥",
-
-5:"PERFECT 5/5! 🏆 Someone give Vismaya a gold medal immediately! 😂💗"
-};
-
-
-/* =========================================================
-   NAVIGATION
-   ========================================================= */
-
-function isDayUnlocked(day){
-
-  if(day === 1) return true;
-
-  if(completedDays.includes(day-1)){
-
-    const unlock = Number(
-      localStorage.getItem("vismayaUnlockTime_" + (day))
-      || 0
+    gain.gain.setValueAtTime(volume,audioContext.currentTime);
+    gain.gain.exponentialRampToValueAtTime(
+      0.001,
+      audioContext.currentTime + duration
     );
 
-    if(Date.now() >= unlock){
-      return true;
-    }
-  }
+    oscillator.connect(gain);
+    gain.connect(audioContext.destination);
 
-  return completedDays.includes(day);
+    oscillator.start();
+    oscillator.stop(audioContext.currentTime + duration);
+  }catch(e){}
 }
 
-
-function renderDays(){
-
-  const nav = document.getElementById("daysNav");
-  nav.innerHTML="";
-
-  for(let i=1;i<=15;i++){
-
-    const button=document.createElement("button");
-    button.className="day-btn";
-
-    if(i===currentDay){
-      button.classList.add("active");
-    }
-
-    if(!isDayUnlocked(i)){
-      button.classList.add("locked");
-      button.innerHTML="🔒 Day "+i;
-    }else{
-      button.innerHTML=
-        completedDays.includes(i)
-        ? "✅ Day "+i
-        : "Day "+i;
-    }
-
-    button.onclick=()=>{
-
-      if(isDayUnlocked(i)){
-        currentDay=i;
-        localStorage.setItem("vismayaCurrentDay",currentDay);
-        render();
-      }else{
-        alert("🔒 This day is still locked!\n\nFinish the previous day and wait for the 12-hour countdown. 💗");
-      }
-
-    };
-
-    nav.appendChild(button);
-  }
+function submitSound(){
+  sound(523,.12);
+  setTimeout(()=>sound(659,.12),100);
+  setTimeout(()=>sound(784,.18),200);
 }
 
-
-/* =========================================================
-   QUESTION RENDERING
-   ========================================================= */
-
-function renderQuestion(q,index){
-
-  let html="";
-
-  html+=`<div class="question ${q.type==="task"?"task-box":""}">`;
-
-  html+=`<h3>${index+1}. ${q.q}</h3>`;
-
-  if(q.type==="mcq"){
-
-    q.options.forEach((option,i)=>{
-
-      html+=`
-      <label class="option">
-        <input type="radio"
-          name="q${index}"
-          value="${escapeHTML(option)}">
-        ${escapeHTML(option)}
-      </label>
-      `;
-
-    });
-
-  }
-
-  if(q.type==="text"){
-
-    html+=`
-      <textarea
-        id="text${index}"
-        placeholder="Write your answer here... 💗"></textarea>
-    `;
-
-  }
-
-  if(q.type==="task"){
-
-    html+=`
-      <label class="task-check">
-        <input type="checkbox" id="task${index}">
-        I completed today's task ✅
-      </label>
-    `;
-
-    html+=`
-      <p class="small">
-        ${escapeHTML(q.task)}
-      </p>
-    `;
-  }
-
-  html+=`</div>`;
-
-  return html;
+function correctSound(){
+  sound(659,.1);
+  setTimeout(()=>sound(784,.15),90);
 }
 
-
-function renderDay(){
-
-  const content=document.getElementById("content");
-
-  if(completedDays.includes(currentDay)){
-
-    showCompletedDay();
-    return;
-  }
-
-  if(!isDayUnlocked(currentDay)){
-
-    showLockedDay();
-    return;
-  }
-
-  const day=DAYS[currentDay-1];
-
-  let html=`
-
-    <h2 class="day-title">${day.title}</h2>
-
-    <div class="day-subtitle">
-      4 questions + 1 task • 5 marks
-    </div>
-
-  `;
-
-  day.questions.forEach((q,i)=>{
-    html+=renderQuestion(q,i);
-  });
-
-  html+=`
-    <button class="submit-btn" onclick="submitDay()">
-      💗 SUBMIT DAY ${currentDay}
-    </button>
-
-    <div id="result" class="result"></div>
-  `;
-
-  content.innerHTML=html;
+function wrongSound(){
+  sound(220,.18,"sawtooth");
+  setTimeout(()=>sound(180,.25,"sawtooth"),130);
 }
 
-
-/* =========================================================
-   SUBMIT DAY
-   ========================================================= */
-
-function submitDay(){
-
-  if(submittedThisSession) return;
-
-  const day=DAYS[currentDay-1];
-
-  let score=0;
-
-  let reviews=[];
-
-  day.questions.forEach((q,index)=>{
-
-    let correct=false;
-    let userAnswer="";
-
-    if(q.type==="mcq"){
-
-      const selected=document.querySelector(
-        `input[name="q${index}"]:checked`
-      );
-
-      if(selected){
-        userAnswer=selected.value;
-        correct=userAnswer===q.answer;
-      }
-
-    }
-
-    else if(q.type==="text"){
-
-      const box=document.getElementById("text"+index);
-
-      userAnswer=box.value.trim();
-
-      if(q.flexible){
-
-        correct=userAnswer.length>=3;
-
-      }else{
-
-        const lower=userAnswer.toLowerCase();
-
-        correct=q.keywords.some(keyword =>
-          lower.includes(keyword.toLowerCase())
-        );
-
-      }
-
-    }
-
-    else if(q.type==="task"){
-
-      const checkbox=document.getElementById("task"+index);
-
-      correct=checkbox.checked;
-
-      userAnswer=correct
-        ? "Task completed"
-        : "Task not completed";
-
-    }
-
-    if(correct) score++;
-
-    reviews.push({
-      question:q,
-      userAnswer:userAnswer,
-      correct:correct
-    });
-
-  });
-
-
-  totalScore += score;
-
-  localStorage.setItem(
-    "vismayaTotalScore",
-    totalScore
-  );
-
-
-  if(!completedDays.includes(currentDay)){
-    completedDays.push(currentDay);
-
-    localStorage.setItem(
-      "vismayaCompletedDays",
-      JSON.stringify(completedDays)
-    );
-  }
-
-
-  /* Start 12-hour countdown for next day */
-
-  if(currentDay < 15){
-
-    const nextDay=currentDay+1;
-
-    const nextUnlock=
-      Date.now()+(12*60*60*1000);
-
-    localStorage.setItem(
-      "vismayaUnlockTime_"+nextDay,
-      nextUnlock
-    );
-
-  }
-
-
-  submittedThisSession=true;
-
-  showResult(score,reviews);
-
-  updateScore();
-
-  renderDays();
-
+function celebrationSound(){
+  sound(523,.1);
+  setTimeout(()=>sound(659,.1),100);
+  setTimeout(()=>sound(784,.1),200);
+  setTimeout(()=>sound(1047,.25),300);
 }
 
+/* ---------------------------------------------------------
+   SCORE REACTIONS
+   --------------------------------------------------------- */
 
-/* =========================================================
-   SHOW RESULT
-   ========================================================= */
+function scoreDialogue(score){
 
-function showResult(score,reviews){
+  const messages = {
+    0:"😭 VISMAYAAAA... 0?! We need to have a friendship meeting immediately.",
+    1:"😂 Very bad Vismaya! WHY LIKE THIS?! Even the questions are confused.",
+    2:"😌 Okay okay... you're alive. But your friendship knowledge needs charging.",
+    3:"😎 Not bad! Somebody has clearly been attending Friendship Studies.",
+    4:"🔥 OHO! Almost perfect! The hostel committee is impressed.",
+    5:"👑 5/5?! EXCUSE ME?! Friendship professor has entered the chat!"
+  };
 
-  const result=document.getElementById("result");
-
-  result.style.display="block";
-
-  let html=`
-
-    <div>💗 DAY ${currentDay} RESULT 💗</div>
-
-    <div class="result-score">
-      ${score} / 5
-    </div>
-
-    <p>
-      ${scoreMessages[score]}
-    </p>
-
-    <div class="answer-review">
-      <h3>📖 Answer Review</h3>
-  `;
-
-
-  reviews.forEach((r,i)=>{
-
-    let answerText="";
-
-    if(r.question.type==="mcq"){
-
-      answerText=
-        "Correct answer: <b>"+
-        escapeHTML(r.question.answer)+
-        "</b>";
-
-    }
-
-    else if(r.question.type==="text"){
-
-      if(r.question.flexible){
-
-        answerText=
-          "<b>No single fixed answer!</b><br>"+
-          "Your answer was accepted because you completed the question. 💗";
-
-      }else{
-
-        answerText=
-          "<b>Expected idea:</b> "+
-          escapeHTML(r.question.keywords.join(", "));
-
-      }
-
-    }
-
-    else{
-
-      answerText=
-        "<b>Task:</b> "+
-        escapeHTML(r.question.task);
-
-    }
-
-
-    html+=`
-
-      <div class="review ${r.correct?"correct":"wrong"}">
-
-        <b>
-          ${r.correct?"✅ CORRECT":"❌ WRONG"}
-        </b>
-
-        <br><br>
-
-        Your answer:
-        ${r.userAnswer
-          ? escapeHTML(r.userAnswer)
-          : "<i>No answer</i>"}
-
-        <br><br>
-
-        ${answerText}
-
-      </div>
-
-    `;
-
-  });
-
-
-  html+=`</div>`;
-
-
-  if(currentDay<15){
-
-    html+=`
-
-      <div class="timer-box">
-
-        ⏰ <b>Next day unlocks after 12 hours</b>
-
-        <div class="timer" id="countdown">
-          Calculating...
-        </div>
-
-        <button class="next-btn" onclick="goNextDay()">
-          🔒 Wait for Day ${currentDay+1}
-        </button>
-
-      </div>
-
-    `;
-
-  }else{
-
-    html+=`
-
-      <div class="timer-box">
-
-        🏆 YOU FINISHED ALL 15 DAYS! 🏆
-
-        <div class="result-score">
-          ${totalScore} / 75
-        </div>
-
-        <p>
-          ${finalMessage(totalScore)}
-        </p>
-
-      </div>
-
-    `;
-
-  }
-
-
-  result.innerHTML=html;
-
-  result.scrollIntoView({
-    behavior:"smooth"
-  });
-
-  startCountdown();
-
+  return messages[score] || "";
 }
 
+/* ---------------------------------------------------------
+   SAVE
+   --------------------------------------------------------- */
 
-/* =========================================================
-   LOCKED DAY SCREEN
-   ========================================================= */
-
-function showLockedDay(){
-
-  const content=document.getElementById("content");
-
-  content.innerHTML=`
-
-    <div class="result" style="display:block">
-
-      <div style="font-size:50px">🔒</div>
-
-      <h2>
-        Day ${currentDay} is still sleeping 😴
-      </h2>
-
-      <p>
-        Finish the previous day's challenge first.
-      </p>
-
-      <div class="timer-box">
-
-        ⏰ Your next challenge unlocks in:
-
-        <div class="timer" id="countdown">
-          Calculating...
-        </div>
-
-      </div>
-
-    </div>
-
-  `;
-
-  startCountdown();
-
+function save(){
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(state));
 }
 
-
-/* =========================================================
-   COMPLETED DAY
-   ========================================================= */
-
-function showCompletedDay(){
-
-  const content=document.getElementById("content");
-
-  content.innerHTML=`
-
-    <div class="result" style="display:block">
-
-      <div style="font-size:50px">✅</div>
-
-      <h2>Day ${currentDay} completed!</h2>
-
-      <p>
-        You already conquered this challenge. 😂💗
-      </p>
-
-      ${
-        currentDay<15
-        ?`
-          <div class="timer-box">
-            ⏰ Next challenge unlocks in:
-            <div class="timer" id="countdown">
-              Calculating...
-            </div>
-          </div>
-        `
-        :`
-          <div class="timer-box">
-            🏆 FINAL SCORE
-            <div class="result-score">
-              ${totalScore} / 75
-            </div>
-            <p>${finalMessage(totalScore)}</p>
-          </div>
-        `
-      }
-
-    </div>
-
-  `;
-
-  startCountdown();
-
-}
-
-
-/* =========================================================
-   COUNTDOWN
-   ========================================================= */
-
-function startCountdown(){
-
-  clearInterval(window.countdownInterval);
-
-  if(currentDay>=15) return;
-
-  const unlock=Number(
-    localStorage.getItem(
-      "vismayaUnlockTime_"+(currentDay+1)
-    ) || 0
-  );
-
-  if(!unlock) return;
-
-  function update(){
-
-    const element=document.getElementById("countdown");
-
-    if(!element){
-      clearInterval(window.countdownInterval);
-      return;
-    }
-
-    const remaining=unlock-Date.now();
-
-    if(remaining<=0){
-
-      element.innerHTML="🎉 UNLOCKED!";
-
-      clearInterval(window.countdownInterval);
-
-      setTimeout(()=>{
-        render();
-      },800);
-
-      return;
-    }
-
-    const hours=Math.floor(
-      remaining/(1000*60*60)
-    );
-
-    const minutes=Math.floor(
-      (remaining%(1000*60*60))/
-      (1000*60)
-    );
-
-    const seconds=Math.floor(
-      (remaining%(1000*60))/
-      1000
-    );
-
-    element.innerHTML=
-      `${String(hours).padStart(2,"0")}:`+
-      `${String(minutes).padStart(2,"0")}:`+
-      `${String(seconds).padStart(2,"0")}`;
-
-  }
-
-  update();
-
-  window.countdownInterval=
-    setInterval(update,1000);
-}
-
-
-/* =========================================================
-   NEXT DAY
-   ========================================================= */
-
-function goNextDay(){
-
-  if(currentDay>=15) return;
-
-  if(isDayUnlocked(currentDay+1)){
-
-    currentDay++;
-
-    localStorage.setItem(
-      "vismayaCurrentDay",
-      currentDay
-    );
-
-    submittedThisSession=false;
-
-    render();
-
-    window.scrollTo({
-      top:0,
-      behavior:"smooth"
-    });
-
-  }else{
-
-    alert(
-      "Not yet! 😭\n\n"+
-      "The next challenge needs another few hours of friendship patience. 😂💗"
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   SCORE DISPLAY
-   ========================================================= */
-
-function updateScore(){
-
-  document.getElementById("totalScore").innerHTML=
-    `${totalScore} / 75`;
-
-  document.getElementById("progressBar").style.width=
-    `${(totalScore/75)*100}%`;
-
-  if(totalScore===0){
-
-    document.getElementById("scoreMessage").innerHTML=
-      "Your boredom-breaking journey starts now 💗";
-
-  }else if(totalScore<20){
-
-    document.getElementById("scoreMessage").innerHTML=
-      "The friendship studies department is concerned. 😂";
-
-  }else if(totalScore<40){
-
-    document.getElementById("scoreMessage").innerHTML=
-      "Okayyy... progress is happening! 💗";
-
-  }else if(totalScore<60){
-
-    document.getElementById("scoreMessage").innerHTML=
-      "Vismaya is becoming dangerous at relationship studies. 👀";
-
-  }else if(totalScore<75){
-
-    document.getElementById("scoreMessage").innerHTML=
-      "TOPPER ALERT 🚨💗";
-
-  }else{
-
-    document.getElementById("scoreMessage").innerHTML=
-      "75/75! The ultimate friendship-studies champion! 🏆";
-
-  }
-
-}
-
-
-/* =========================================================
-   FINAL SCORE MESSAGE
-   ========================================================= */
-
-function finalMessage(score){
-
-  if(score<=15)
-    return "Vismaya... we need to have a serious meeting. 😂💀";
-
-  if(score<=30)
-    return "You survived, but barely. Relationship Studies needs revision! 😂";
-
-  if(score<=45)
-    return "Not bad! The friendship brain is functioning. 😌💗";
-
-  if(score<=60)
-    return "Okay topper! Somebody studied the friendship syllabus! 🔥";
-
-  if(score<=70)
-    return "EXCELLENT! The friendship department is impressed! 🏆💗";
-
-  return "75/75?! ABSOLUTE LEGEND. Somebody give this girl a degree in Relationship Studies! 🏆😂💗";
-
-}
-
-
-/* =========================================================
-   SECURITY / HTML ESCAPE
-   ========================================================= */
-
-function escapeHTML(value){
-
-  return String(value)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-
-}
-
-
-/* =========================================================
-   MAIN RENDER
-   ========================================================= */
-
-function render(){
-
-  updateScore();
-
-  renderDays();
-
-  renderDay();
-
-}
-
-
-/* =========================================================
-   START APP
-   ========================================================= */
-
-render();
-
-</script>
-
-</body>
-</html>
+/* ---------------------------------------------------------
+   CURRENT UNLOCKED DAY
+   ----------------
