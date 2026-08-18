@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ff5c8a">
 <title>Vismaya's Boredom Breaker</title>
 
 <style>
@@ -12,47 +13,39 @@
 
 body{
   margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  background:linear-gradient(135deg,#fff0f6,#fce4ec,#f8e8ff);
+  font-family:Arial, sans-serif;
+  background:linear-gradient(135deg,#ffe6ef,#f8eaff,#fff7fb);
   color:#333;
-  min-height:100vh;
 }
 
-.container{
-  width:100%;
-  max-width:650px;
-  margin:auto;
-  padding:18px;
-}
-
-.header{
+header{
   text-align:center;
-  padding:18px 8px 12px;
+  padding:28px 18px 20px;
 }
 
-.header h1{
+header h1{
+  color:#d92d68;
+  font-size:28px;
   margin:0;
-  color:#d81b60;
-  font-size:27px;
-  line-height:1.15;
+  line-height:1.2;
 }
 
-.header p{
-  color:#666;
+header p{
+  color:#777;
   margin:10px 0 0;
   font-size:14px;
 }
 
-.scoreBox{
-  background:rgba(255,255,255,.85);
-  border-radius:24px;
+.score-card{
+  margin:0 16px 18px;
   padding:22px;
+  background:rgba(255,255,255,.88);
+  border-radius:24px;
   text-align:center;
-  box-shadow:0 8px 30px rgba(190,70,130,.12);
-  margin-bottom:18px;
+  box-shadow:0 8px 25px rgba(180,80,120,.12);
 }
 
-.scoreTitle{
+.score-title{
   font-size:15px;
   color:#777;
 }
@@ -60,126 +53,128 @@ body{
 .score{
   font-size:42px;
   font-weight:bold;
-  color:#d81b60;
+  color:#d92d68;
   margin:5px 0;
 }
 
 .progress{
-  width:100%;
-  height:10px;
-  background:#f3d5e1;
+  height:9px;
+  background:#f2d7e1;
   border-radius:20px;
   overflow:hidden;
-  margin-top:14px;
+  margin-top:12px;
 }
 
-.progressBar{
+.progress-bar{
   height:100%;
   width:0%;
-  background:linear-gradient(90deg,#ec407a,#ab47bc);
-  transition:.5s;
-}
-
-.timerBox{
-  background:#fff;
-  border-radius:20px;
-  padding:16px;
-  text-align:center;
-  margin-bottom:18px;
-  box-shadow:0 5px 20px rgba(0,0,0,.07);
-}
-
-.timer{
-  color:#d81b60;
-  font-size:24px;
-  font-weight:bold;
+  background:linear-gradient(90deg,#ff6b9b,#d92d68);
+  transition:.4s;
 }
 
 .days{
   display:flex;
   overflow-x:auto;
   gap:8px;
-  padding:4px 2px 15px;
-  scrollbar-width:none;
+  padding:10px 14px 16px;
 }
 
-.days::-webkit-scrollbar{
-  display:none;
-}
-
-.dayBtn{
+.day-btn{
   border:0;
-  min-width:70px;
-  padding:11px 10px;
-  border-radius:15px;
-  background:#eee;
-  color:#888;
+  padding:10px 15px;
+  border-radius:20px;
+  background:#fff;
+  color:#777;
+  white-space:nowrap;
   font-weight:bold;
+  box-shadow:0 3px 10px rgba(0,0,0,.08);
 }
 
-.dayBtn.active{
-  background:#ec407a;
+.day-btn.active{
+  background:#ff5c8a;
   color:white;
 }
 
-.dayBtn.done{
-  background:#81c784;
-  color:white;
+.day-btn.locked{
+  opacity:.45;
 }
 
-.dayBtn.locked{
-  background:#e7e7e7;
-  color:#aaa;
+.container{
+  padding:0 15px 40px;
+  max-width:700px;
+  margin:auto;
 }
 
-.content{
-  display:none;
-}
-
-.content.active{
-  display:block;
-}
-
-.card{
-  background:rgba(255,255,255,.93);
-  border-radius:25px;
+.day-card{
+  background:rgba(255,255,255,.9);
+  border-radius:26px;
   padding:20px;
-  margin-bottom:16px;
-  box-shadow:0 7px 25px rgba(150,70,120,.1);
+  box-shadow:0 8px 30px rgba(180,80,120,.12);
 }
 
-.dayTitle{
-  color:#d81b60;
-  font-size:23px;
-  font-weight:bold;
-  margin-bottom:5px;
+.day-title{
+  color:#d92d68;
+  font-size:24px;
+  margin:0 0 5px;
 }
 
-.questionNumber{
-  color:#999;
+.day-subtitle{
+  color:#888;
+  font-size:14px;
+  margin-bottom:18px;
+}
+
+.media-box{
+  margin:15px 0 22px;
+  border-radius:20px;
+  overflow:hidden;
+  background:#f8e8ef;
+}
+
+.media-box img,
+.media-box video{
+  width:100%;
+  display:block;
+  max-height:480px;
+  object-fit:cover;
+}
+
+.media-caption{
+  padding:10px 14px;
+  text-align:center;
+  color:#777;
   font-size:13px;
-  margin-bottom:8px;
 }
 
 .question{
-  font-size:17px;
+  background:#fff8fb;
+  border:1px solid #f5d8e3;
+  border-radius:20px;
+  padding:16px;
+  margin:14px 0;
+}
+
+.question-number{
+  color:#d92d68;
   font-weight:bold;
-  line-height:1.4;
-  margin-bottom:14px;
+  font-size:13px;
+}
+
+.question-text{
+  font-size:16px;
+  font-weight:bold;
+  line-height:1.45;
+  margin:7px 0 13px;
 }
 
 .option{
   display:block;
-  padding:13px;
+  padding:11px 13px;
   margin:8px 0;
-  border:2px solid #f1d6e2;
-  border-radius:14px;
+  background:white;
+  border:1px solid #ead7df;
+  border-radius:13px;
   cursor:pointer;
-  background:#fff;
-}
-
-.option:hover{
-  background:#fff3f8;
 }
 
 .option input{
@@ -188,815 +183,837 @@ body{
 
 textarea{
   width:100%;
-  min-height:100px;
-  border:2px solid #f1d6e2;
-  border-radius:15px;
-  padding:13px;
-  font-size:15px;
+  min-height:110px;
+  border:1px solid #e5ccd6;
+  border-radius:14px;
+  padding:12px;
+  font-family:inherit;
+  font-size:14px;
   resize:vertical;
-  outline:none;
 }
 
-textarea:focus{
-  border-color:#ec407a;
+.task-box{
+  background:linear-gradient(135deg,#fff0f5,#fff9ed);
+  border:1px dashed #ef91ae;
 }
 
-.task{
-  background:#fff7fb;
-  border:2px dashed #ec8db0;
-  border-radius:18px;
-  padding:16px;
-}
-
-.task label{
-  display:flex;
-  gap:10px;
-  align-items:flex-start;
+.task-label{
+  display:inline-block;
+  background:#ff5c8a;
+  color:white;
+  border-radius:15px;
+  padding:5px 10px;
+  font-size:12px;
   font-weight:bold;
-  line-height:1.4;
 }
 
-.task input{
-  width:20px;
-  height:20px;
-}
-
-.media{
-  margin:15px 0;
-  border-radius:20px;
-  overflow:hidden;
-  background:#f7e8ef;
-}
-
-.media video,
-.media img{
-  width:100%;
-  display:block;
-  max-height:420px;
-  object-fit:cover;
-}
-
-button.mainBtn{
+.submit-btn{
   width:100%;
   border:0;
+  padding:15px;
   border-radius:18px;
-  padding:16px;
-  background:linear-gradient(90deg,#ec407a,#d81b60);
+  background:linear-gradient(90deg,#ff5c8a,#d92d68);
   color:white;
-  font-size:17px;
+  font-size:16px;
   font-weight:bold;
-  cursor:pointer;
-  box-shadow:0 6px 18px rgba(216,27,96,.2);
+  margin-top:12px;
+  box-shadow:0 8px 18px rgba(217,45,104,.25);
 }
 
-button.mainBtn:active{
-  transform:scale(.98);
+.submit-btn:disabled{
+  opacity:.6;
 }
 
 .result{
   display:none;
-  margin-top:18px;
-  background:white;
-  border-radius:22px;
+  margin-top:20px;
   padding:20px;
+  border-radius:22px;
   text-align:center;
-  box-shadow:0 5px 20px rgba(0,0,0,.08);
+  background:#fff;
 }
 
-.result.show{
-  display:block;
-}
-
-.resultScore{
-  font-size:40px;
+.result-score{
+  font-size:38px;
   font-weight:bold;
-  color:#d81b60;
+  color:#d92d68;
 }
 
 .feedback{
-  font-size:18px;
+  font-size:16px;
   font-weight:bold;
-  margin:10px 0;
+  margin-top:8px;
 }
 
-.answerBox{
+.answer-review{
   text-align:left;
   margin-top:18px;
 }
 
-.answerItem{
+.review-item{
   padding:12px;
   border-radius:14px;
   margin:8px 0;
-  font-size:14px;
+  font-size:13px;
 }
 
 .correct{
-  background:#e8f5e9;
-  border-left:5px solid #43a047;
+  background:#e8f8ee;
+  border-left:4px solid #42a86b;
 }
 
 .wrong{
-  background:#ffebee;
-  border-left:5px solid #e53935;
+  background:#fff0f0;
+  border-left:4px solid #e05a5a;
 }
 
-.lockedScreen{
-  text-align:center;
-  padding:35px 15px;
+.next-box{
+  margin-top:18px;
+  padding:16px;
+  background:#fff4f8;
+  border-radius:18px;
+  color:#777;
 }
 
-.lockIcon{
-  font-size:50px;
+.countdown{
+  font-size:20px;
+  color:#d92d68;
+  font-weight:bold;
+  margin-top:8px;
 }
 
-.lockedScreen h2{
-  color:#d81b60;
-}
-
-.finalBox{
+.final-card{
   display:none;
-  text-align:center;
-  background:linear-gradient(135deg,#fff,#ffe4ef);
+  background:linear-gradient(135deg,#fff0f6,#fff8e9);
+  padding:25px;
   border-radius:25px;
-  padding:30px 20px;
+  text-align:center;
   margin-top:20px;
 }
 
-.finalBox.show{
-  display:block;
-}
-
-.finalScore{
+.final-score{
   font-size:52px;
-  color:#d81b60;
+  color:#d92d68;
   font-weight:bold;
 }
 
-.small{
-  color:#888;
-  font-size:13px;
-}
-
-.photoCaption{
-  text-align:center;
-  padding:10px;
-  color:#777;
-  font-size:13px;
-}
-
 .hidden{
-  display:none!important;
+  display:none;
+}
+
+.small-note{
+  font-size:12px;
+  color:#999;
+  text-align:center;
+  margin-top:14px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
-
-<header class="header">
-  <h1>💗 VISMAYA'S BOREDOM<br>BREAKER 💗</h1>
+<header>
+  <h1>💗 VISMAYA'S BOREDOM BREAKER 💗</h1>
   <p>15 days • 5 challenges every day • friendship chaos 😂</p>
 </header>
 
-<div class="scoreBox">
-  <div class="scoreTitle">🏆 TOTAL SCORE</div>
+<div class="score-card">
+  <div class="score-title">🏆 TOTAL SCORE</div>
   <div class="score"><span id="totalScore">0</span> / 75</div>
   <div id="scoreMessage">Your boredom-breaking journey starts now 💗</div>
   <div class="progress">
-    <div class="progressBar" id="progressBar"></div>
+    <div class="progress-bar" id="progressBar"></div>
   </div>
 </div>
 
-<div class="timerBox" id="timerBox">
-  <div>⏰ Next challenge unlocks in</div>
-  <div class="timer" id="timer">--:--:--</div>
-  <div class="small">Complete today's challenge to start the countdown.</div>
-</div>
+<div class="days" id="dayButtons"></div>
 
-<div class="days" id="days"></div>
+<div class="container">
+  <div id="app"></div>
 
-<div id="app"></div>
-
-<div class="finalBox" id="finalBox">
-  <div>🎉🎉🎉</div>
-  <h2>YOU SURVIVED ALL 15 DAYS!</h2>
-  <div class="finalScore"><span id="finalScore">0</span> / 75</div>
-  <p id="finalMessage"></p>
-  <p>💗 Friendship Studies officially completed.</p>
-</div>
-
+  <div class="final-card" id="finalCard">
+    <div>🏆✨ YOU MADE IT! ✨🏆</div>
+    <div class="final-score">
+      <span id="finalScore">0</span> / 75
+    </div>
+    <h2 id="finalMessage"></h2>
+    <p>15 days. 75 marks. Unlimited friendship nonsense. 😂💗</p>
+  </div>
 </div>
 
 <script>
 
 /* =========================================================
-   VISMAYA'S BOREDOM BREAKER
-   15 DAYS × 5 MARKS = 75
+   MEDIA
    ========================================================= */
 
-const STORAGE_KEY = "vismaya_boredom_breaker_v4";
+const media = {
+  1: {
+    type:"video",
+    src:"day1.mp4",
+    caption:"🎬 Day 1 surprise unlocked!"
+  },
 
-const state = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {
-  scores: {},
-  completed: {},
-  answers: {},
-  unlockTime: null
+  2: {
+    type:"image",
+    src:"day2.jpg",
+    caption:"🩷 Day 2: A little photographic evidence..."
+  },
+
+  3: {
+    type:"image",
+    src:"day3.jpg",
+    caption:"📸 Day 3: Another suspiciously iconic moment."
+  },
+
+  4: {
+    type:"video",
+    src:"day4.mp4",
+    caption:"🎬 Day 4: Press play and prepare yourself 😂"
+  },
+
+  5: {
+    type:"video",
+    src:"day5.mp4",
+    caption:"🎬 Day 5: Another episode from the Vismaya archives."
+  },
+
+  6: {
+    type:"video",
+    src:"day6.mp4",
+    caption:"🎬 Day 6: The chaos continues."
+  }
 };
 
-/* ---------------------------------------------------------
-   15 DAYS OF QUESTIONS
-   Each day:
-   Q1 = MCQ
-   Q2 = MCQ
-   Q3 = descriptive
-   Q4 = descriptive
-   Q5 = task
-   --------------------------------------------------------- */
+
+/* =========================================================
+   15 DAYS
+   4 QUESTIONS + 1 TASK EACH
+   ========================================================= */
 
 const days = [
 
 {
 day:1,
-media:{
-type:"video",
-src:"day1-video.mp4"
-},
 questions:[
+
 {
 type:"mcq",
-q:"Who is most likely to disappear into her phone and suddenly remember that other humans exist?",
+q:"Who is most likely to disappear into her phone and forget that other humans exist?",
 options:["Angel","Adithya","Meharoofa","Pavithra"],
-answer:0
+answer:0,
+correct:"Angel"
 },
+
 {
 type:"mcq",
-q:"Who is most associated with wanting a peaceful farmer life surrounded by cows, birds and hens?",
-options:["Angel","Adithya","Meharoofa","Pavithra"],
-answer:1
+q:"Who is famous for being permanently busy with boyfriend calls?",
+options:["Vismaya","Adithya","Meharoofa","Angel"],
+answer:1,
+correct:"Adithya"
 },
+
 {
 type:"text",
-q:"Describe Angel's most predictable behaviour when she gets too comfortable. Write it like you are exposing her in court 😂",
-keywords:["phone","cot","boyfriend","lie","lying"]
+q:"Describe Angel in one funny sentence. What is the first thing that comes to your mind about her?",
+keywords:["phone","boyfriend","cot"],
+answer:"Any answer mentioning Angel's phone, boyfriend or cot earns the mark."
 },
+
 {
 type:"text",
-q:"Vismaya diary entry: What is the funniest thing you have done or thought today while staying at home?",
-keywords:["home","today"]
-},
-{
-type:"task",
-q:"TASK: Give yourself a ridiculous title for surviving Day 1 and write it somewhere. Example: 'CEO of Doing Absolutely Nothing.'"
+q:"Write one funny sentence describing yourself as the main character of today's episode.",
+keywords:["vismaya","me"],
+answer:"A genuine descriptive answer earns the mark."
 }
-]
+
+],
+task:{
+q:"TASK: Give yourself a dramatic movie-style title for today. Example: 'Vismaya Returns: The Boredom Saga'. Write your title below.",
+keywords:[""],
+answer:"Any genuine title earns the mark."
+}
 },
 
 {
 day:2,
-media:{
-type:"video",
-src:"day2-video.mp4"
-},
 questions:[
+
 {
 type:"mcq",
-q:"Who is most likely to become emotional during a situation that did not require tears?",
-options:["Adithya","Angel","Meharoofa","Pavithra"],
-answer:0
+q:"Who gets teased easily because she can become emotional very quickly?",
+options:["Adithya","Angel","Pavithra","Meharoofa"],
+answer:0,
+correct:"Adithya"
 },
+
 {
 type:"mcq",
-q:"Who is known for having a loud voice and a very short route from calm to angry?",
-options:["Angel","Pavithra","Meharoofa","Adithya"],
-answer:2
+q:"Who is most associated with 'Aachi' conversations?",
+options:["Angel","Meharoofa","Adithya","Vismaya"],
+answer:1,
+correct:"Meharoofa"
 },
+
 {
 type:"text",
-q:"Write a funny description of what Adithya would probably be doing at the hostel right now.",
-keywords:["call","phone","boyfriend","cow","bird","hen"]
+q:"If all four hostel friends suddenly entered your room, what would be the FIRST thing you would tell them?",
+keywords:["come","hello","why","hi"],
+answer:"A reasonable descriptive answer earns the mark."
 },
+
 {
 type:"text",
-q:"What is one thing about yourself that you think your hostel friends would immediately recognise?",
-keywords:["friend","hostel"]
-},
-{
-type:"task",
-q:"TASK: Make your most dramatic facial expression in the mirror for 10 seconds. No cheating."
+q:"Write a funny mini-review of your day at home. Give your day a rating out of 10 and explain why.",
+keywords:["10","9","8","7","6","5","4","3","2","1"],
+answer:"Any genuine day review with a rating earns the mark."
 }
-]
+
+],
+task:{
+q:"TASK: Take a photo of the funniest object near you and give it a ridiculous name.",
+keywords:[""],
+answer:"Task completed = 1 mark."
+}
 },
 
 {
 day:3,
-media:{
-type:"image",
-src:"day3-photo.jpg"
-},
 questions:[
+
 {
 type:"mcq",
-q:"Who would most likely give everyone advice and then scold them for not following it?",
-options:["Angel","Pavithra","Adithya","Meharoofa"],
-answer:1
+q:"Who would most likely choose farming if given the chance?",
+options:["Angel","Adithya","Meharoofa","Pavithra"],
+answer:1,
+correct:"Adithya"
 },
+
 {
 type:"mcq",
-q:"Which person is most likely to have a relationship-related story ready at any random moment?",
-options:["Angel","Pavithra","Adithya","Meharoofa"],
-answer:0
+q:"Who is known for having a loud voice and getting angry quickly?",
+options:["Meharoofa","Angel","Vismaya","Adithya"],
+answer:0,
+correct:"Meharoofa"
 },
+
 {
 type:"text",
-q:"Look at today's photo. Give the two people in it a completely unnecessary movie title 😂",
-keywords:["movie","title"]
+q:"Imagine the four hostel girls are having a meeting about you. What do you think they are saying?",
+keywords:["vismaya","girl","hostel"],
+answer:"A creative answer earns the mark."
 },
+
 {
 type:"text",
-q:"Tell us what you ate today, but describe it like you are reviewing a five-star restaurant.",
-keywords:["ate","food","breakfast","lunch","dinner","meal"]
-},
-{
-type:"task",
-q:"TASK: Take a random object near you and give it a human name."
+q:"Write today's food report like a dramatic restaurant critic. What did you eat and how would you rate it?",
+keywords:["food","eat","ate","rice","breakfast","lunch","dinner"],
+answer:"A genuine food review earns the mark."
 }
-]
+
+],
+task:{
+q:"TASK: Make up a new friendship rule that the five of you MUST follow from today.",
+keywords:[""],
+answer:"Any genuine rule earns the mark."
+}
 },
 
 {
 day:4,
 questions:[
+
 {
 type:"mcq",
-q:"Who would probably turn a normal hostel conversation into a full-length discussion?",
-options:["Meharoofa","Angel","Adithya","Pavithra"],
-answer:3
+q:"Who is the friend most likely to act completely innocent after causing chaos?",
+options:["Angel","Adithya","Meharoofa","Pavithra"],
+answer:0,
+correct:"Angel"
 },
+
 {
 type:"mcq",
-q:"Who has the strongest connection with the word 'aachi' in our friendship universe?",
-options:["Pavithra","Meharoofa","Angel","Adithya"],
-answer:1
+q:"Who would most likely lecture everyone because she thinks she is the mature one?",
+options:["Vismaya","Pavithra","Angel","Adithya"],
+answer:1,
+correct:"Pavithra"
 },
+
 {
 type:"text",
-q:"If all four hostel friends suddenly entered your room, who would create the most chaos and why?",
-keywords:["angel","adithya","meharoofa","pavithra"]
+q:"Describe Pavithra as if she were a strict teacher entering a noisy classroom.",
+keywords:["teacher","scold","study","mature","class"],
+answer:"A descriptive answer about Pavithra earns the mark."
 },
+
 {
 type:"text",
-q:"Describe your current mood using only a funny comparison.",
-keywords:["like","because"]
-},
-{
-type:"task",
-q:"TASK: Send yourself a motivational message and read it aloud dramatically."
+q:"If your current life had a WhatsApp status, what would you write?",
+keywords:[""],
+answer:"Any genuine status earns the mark."
 }
-]
+
+],
+task:{
+q:"TASK: Write a fake breaking-news headline about something that happened in your room today.",
+keywords:[""],
+answer:"Any genuine headline earns the mark."
+}
 },
 
 {
 day:5,
 questions:[
+
 {
 type:"mcq",
-q:"Who would most likely be busy on a phone call while everyone else is waiting?",
-options:["Angel","Adithya","Meharoofa","Pavithra"],
-answer:0
+q:"Who is most likely to start talking about her relationship during an unrelated conversation?",
+options:["Angel","Adithya","Pavithra","Vismaya"],
+answer:0,
+correct:"Angel"
 },
+
 {
 type:"mcq",
-q:"Who is most likely to get angry loudly enough for everyone nearby to know?",
-options:["Adithya","Meharoofa","Angel","Pavithra"],
-answer:1
+q:"Who is most likely to become a farmer and happily spend time around cows, birds and hens?",
+options:["Meharoofa","Adithya","Angel","Pavithra"],
+answer:1,
+correct:"Adithya"
 },
+
 {
 type:"text",
-q:"Imagine the hostel has a Friendship Parliament. What ridiculous ministry should each of your four friends handle?",
-keywords:["angel","adithya","meharoofa","pavithra"]
+q:"Create one funny dialogue between Meharoofa and Angel about something completely unnecessary.",
+keywords:[""],
+answer:"A creative dialogue earns the mark."
 },
+
 {
 type:"text",
-q:"Give yourself a funny report card for today's activities.",
-keywords:["today"]
-},
-{
-type:"task",
-q:"TASK: Walk around your room like you are entering a fashion show."
+q:"What is one thing about yourself that your friends would definitely roast you for?",
+keywords:[""],
+answer:"A genuine answer earns the mark."
 }
-]
+
+],
+task:{
+q:"TASK: Give today's mood a name. Make it as dramatic as possible.",
+keywords:[""],
+answer:"Any genuine mood name earns the mark."
+}
 },
 
 {
 day:6,
 questions:[
+
 {
 type:"mcq",
-q:"Who is most likely to give a lecture after everyone has made a silly decision?",
-options:["Pavithra","Angel","Adithya","Meharoofa"],
-answer:0
-},
-{
-type:"mcq",
-q:"Who would be most excited by the idea of spending a whole day around farm animals?",
+q:"Which friend is most likely to be found discussing outfits or appearance before going somewhere?",
 options:["Meharoofa","Adithya","Angel","Pavithra"],
-answer:1
+answer:0,
+correct:"Meharoofa"
 },
+
+{
+type:"mcq",
+q:"Who is most likely to give everyone a lecture while secretly enjoying the chaos?",
+options:["Angel","Pavithra","Adithya","Vismaya"],
+answer:1,
+correct:"Pavithra"
+},
+
 {
 type:"text",
-q:"If your four friends became characters in a comedy movie, what would each person's role be?",
-keywords:["angel","adithya","meharoofa","pavithra"]
+q:"If your four friends were characters in a comedy movie, give each one a funny character description.",
+keywords:["angel","adithya","meharoofa","pavithra"],
+answer:"Mentioning the four friends earns the mark."
 },
+
 {
 type:"text",
-q:"What is one tiny thing that made you smile today?",
-keywords:["today"]
-},
-{
-type:"task",
-q:"TASK: Find the funniest-looking object in your room and give it an award."
+q:"Write a five-line diary entry about your recovery/home day without making it sound serious.",
+keywords:[""],
+answer:"A genuine diary entry earns the mark."
 }
-]
+
+],
+task:{
+q:"TASK: Invent a completely useless award for yourself and write the award title.",
+keywords:[""],
+answer:"Any genuine award earns the mark."
+}
 },
 
 {
 day:7,
 questions:[
+
 {
 type:"mcq",
-q:"Who would most likely spend a suspicious amount of time lying comfortably somewhere?",
-options:["Angel","Meharoofa","Adithya","Pavithra"],
-answer:0
+q:"Who would most likely say 'I am busy' while actually spending a long time on a phone call?",
+options:["Adithya","Pavithra","Meharoofa","Vismaya"],
+answer:0,
+correct:"Adithya"
 },
+
 {
 type:"mcq",
-q:"Who is most likely to become the unofficial teacher of the friend group?",
-options:["Adithya","Angel","Pavithra","Meharoofa"],
-answer:2
+q:"Who is most likely to be the group's unofficial teacher?",
+options:["Angel","Pavithra","Adithya","Meharoofa"],
+answer:1,
+correct:"Pavithra"
 },
+
 {
 type:"text",
-q:"Write one sentence that perfectly describes the chaos level of your friend group.",
-keywords:["friend","chaos"]
+q:"Write a fake conversation between you and the four hostel girls after they finally return from college.",
+keywords:["angel","adithya","meharoofa","pavithra"],
+answer:"Mentioning the four friends earns the mark."
 },
+
 {
 type:"text",
-q:"If you could order one completely unnecessary thing right now, what would it be and why?",
-keywords:["because","order"]
-},
-{
-type:"task",
-q:"TASK: Spend one minute pretending you are a news reporter describing your own room."
+q:"Describe your current boredom level using a completely ridiculous comparison.",
+keywords:[""],
+answer:"A creative comparison earns the mark."
 }
-]
+
+],
+task:{
+q:"TASK: Create a three-word slogan for your life today.",
+keywords:[""],
+answer:"Any three-word slogan earns the mark."
+}
 },
 
 {
 day:8,
 questions:[
+
 {
 type:"mcq",
-q:"Who is most likely to have relationship drama ready as breaking news?",
-options:["Angel","Pavithra","Meharoofa","Adithya"],
-answer:0
+q:"Which friend is most likely to turn a normal conversation into relationship discussion?",
+options:["Angel","Pavithra","Adithya","Meharoofa"],
+answer:0,
+correct:"Angel"
 },
+
 {
 type:"mcq",
-q:"Who would probably scold the group and then secretly help everyone anyway?",
-options:["Adithya","Pavithra","Angel","Meharoofa"],
-answer:1
+q:"Who would probably know exactly what everyone should study next?",
+options:["Vismaya","Angel","Pavithra","Adithya"],
+answer:2,
+correct:"Pavithra"
 },
+
 {
 type:"text",
-q:"Describe the most chaotic possible hostel evening involving Angel, Adithya and Meharoofa.",
-keywords:["angel","adithya","meharoofa"]
+q:"If Angel, Adithya, Meharoofa and Pavithra opened a hostel news channel, what would today's headline be?",
+keywords:["angel","adithya","meharoofa","pavithra"],
+answer:"Mentioning the four friends earns the mark."
 },
+
 {
 type:"text",
-q:"Give today's boring moment a dramatic movie scene description.",
-keywords:["today"]
-},
-{
-type:"task",
-q:"TASK: Create a new nickname for yourself and use it for the rest of today."
+q:"Write today's home-life report in exactly five sentences.",
+keywords:[""],
+answer:"Five genuine sentences earn the mark."
 }
-]
+
+],
+task:{
+q:"TASK: Make up a ridiculous product that would solve your boredom and give it a name.",
+keywords:[""],
+answer:"Any genuine product idea earns the mark."
+}
 },
 
 {
 day:9,
 questions:[
+
 {
 type:"mcq",
-q:"Who would most likely have a sudden emotional reaction to something small?",
-options:["Adithya","Meharoofa","Angel","Pavithra"],
-answer:0
+q:"Who is most likely to react dramatically to a small problem?",
+options:["Adithya","Angel","Pavithra","Meharoofa"],
+answer:0,
+correct:"Adithya"
 },
+
 {
 type:"mcq",
-q:"Who is most likely to turn a normal discussion into a very detailed explanation?",
-options:["Angel","Pavithra","Meharoofa","Adithya"],
-answer:1
+q:"Who is most likely to get annoyed loudly when something goes wrong?",
+options:["Meharoofa","Angel","Adithya","Vismaya"],
+answer:0,
+correct:"Meharoofa"
 },
+
 {
 type:"text",
-q:"Imagine the four hostel friends are opening a business together. What would each one be responsible for?",
-keywords:["angel","adithya","meharoofa","pavithra"]
+q:"Write one roast for each of your four friends. Keep it friendly!",
+keywords:["angel","adithya","meharoofa","pavithra"],
+answer:"Four friendly roasts earn the mark."
 },
+
 {
 type:"text",
-q:"Describe today's meal as if you are a brutally honest food critic.",
-keywords:["food","meal","today"]
-},
-{
-type:"task",
-q:"TASK: Make up a completely useless invention and give it a name."
+q:"If your room could talk, what would it complain about today?",
+keywords:["room"],
+answer:"A genuine answer earns the mark."
 }
-]
+
+],
+task:{
+q:"TASK: Draw or describe the world's worst possible outfit and give it a fashion-show name.",
+keywords:[""],
+answer:"Any genuine attempt earns the mark."
+}
 },
 
 {
 day:10,
 questions:[
+
 {
 type:"mcq",
-q:"Who is most likely to be associated with a very loud reaction?",
-options:["Meharoofa","Angel","Adithya","Pavithra"],
-answer:0
+q:"Who would most likely be found lying comfortably on a cot with her phone?",
+options:["Angel","Pavithra","Adithya","Meharoofa"],
+answer:0,
+correct:"Angel"
 },
+
 {
 type:"mcq",
-q:"Who is most likely to be found discussing a future farm-life dream?",
-options:["Angel","Adithya","Pavithra","Meharoofa"],
-answer:1
+q:"Who is most likely to encourage everyone to study properly?",
+options:["Meharoofa","Pavithra","Angel","Adithya"],
+answer:1,
+correct:"Pavithra"
 },
+
 {
 type:"text",
-q:"Write a fake hostel announcement that would make all four friends panic.",
-keywords:["hostel"]
+q:"Write a fake invitation inviting your four friends to your imaginary 'Boredom Emergency Meeting'.",
+keywords:["angel","adithya","meharoofa","pavithra"],
+answer:"Mentioning the four friends earns the mark."
 },
+
 {
 type:"text",
-q:"What would you tell your four friends if they suddenly appeared at your house?",
-keywords:["friends"]
-},
-{
-type:"task",
-q:"TASK: Make a five-second celebration dance because you completed another day."
+q:"Tell the story of what you ate today as if it were a five-star food documentary.",
+keywords:["ate","food","rice","lunch","dinner","breakfast"],
+answer:"A genuine food story earns the mark."
 }
-]
+
+],
+task:{
+q:"TASK: Give yourself a superhero name based on your current personality.",
+keywords:[""],
+answer:"Any genuine superhero name earns the mark."
+}
 },
 
 {
 day:11,
 questions:[
+
 {
 type:"mcq",
-q:"Who is most likely to be the group's unofficial advice department?",
-options:["Angel","Meharoofa","Pavithra","Adithya"],
-answer:2
+q:"Who would most likely become emotional while watching something sentimental?",
+options:["Adithya","Pavithra","Meharoofa","Angel"],
+answer:0,
+correct:"Adithya"
 },
+
 {
 type:"mcq",
-q:"Who is most likely to be completely absorbed in a phone conversation?",
-options:["Angel","Adithya","Meharoofa","Pavithra"],
-answer:0
+q:"Who is most likely to be associated with a loud voice in the group?",
+options:["Angel","Meharoofa","Pavithra","Vismaya"],
+answer:1,
+correct:"Meharoofa"
 },
+
 {
 type:"text",
-q:"Give each of your four friends a funny superpower based on their personality.",
-keywords:["angel","adithya","meharoofa","pavithra"]
+q:"Write a funny description of what would happen if all five of you were locked inside one room for one hour.",
+keywords:["angel","adithya","meharoofa","pavithra","vismaya"],
+answer:"Mentioning the group earns the mark."
 },
+
 {
 type:"text",
-q:"Write a funny one-line biography of yourself for today.",
-keywords:["today"]
-},
-{
-type:"task",
-q:"TASK: Look at yourself in the mirror and say: 'I am clearly the main character.'"
+q:"What is the most unnecessary thought you had today? Explain it dramatically.",
+keywords:[""],
+answer:"A genuine answer earns the mark."
 }
-]
+
+],
+task:{
+q:"TASK: Create a fake quote that sounds wise but actually makes absolutely no sense.",
+keywords:[""],
+answer:"Any genuine quote earns the mark."
+}
 },
 
 {
 day:12,
 questions:[
+
 {
 type:"mcq",
-q:"Who would most likely react dramatically before knowing the full story?",
-options:["Adithya","Angel","Meharoofa","Pavithra"],
-answer:0
+q:"Who is most likely to be busy on the phone while everyone else is talking?",
+options:["Adithya","Meharoofa","Pavithra","Vismaya"],
+answer:0,
+correct:"Adithya"
 },
+
 {
 type:"mcq",
-q:"Who is most likely to have the confidence to lecture everyone?",
-options:["Pavithra","Angel","Adithya","Meharoofa"],
-answer:0
+q:"Who would most likely correct everyone's mistakes?",
+options:["Angel","Pavithra","Adithya","Meharoofa"],
+answer:1,
+correct:"Pavithra"
 },
+
 {
 type:"text",
-q:"Create a fake group-chat conversation between Angel, Adithya, Meharoofa and Pavithra about a completely silly problem.",
-keywords:["angel","adithya","meharoofa","pavithra"]
+q:"Create a funny group-chat message announcing that you have officially survived another boring day.",
+keywords:[""],
+answer:"A genuine message earns the mark."
 },
+
 {
 type:"text",
-q:"What is the funniest thing about being stuck at home for you?",
-keywords:["home"]
-},
-{
-type:"task",
-q:"TASK: Find something pink around you and pose with it like it is a luxury product."
+q:"Describe yourself today using three completely unrelated words and explain them.",
+keywords:[""],
+answer:"Three words with an explanation earn the mark."
 }
-]
+
+],
+task:{
+q:"TASK: Make a tiny bucket list of three ridiculous things you want to do someday.",
+keywords:[""],
+answer:"Three genuine ideas earn the mark."
+}
 },
 
 {
 day:13,
 questions:[
+
 {
 type:"mcq",
-q:"Who is most likely to combine confidence with a good lecture?",
-options:["Pavithra","Angel","Meharoofa","Adithya"],
-answer:0
+q:"Who is most likely to make a normal relationship situation sound like a full movie?",
+options:["Angel","Adithya","Pavithra","Meharoofa"],
+answer:0,
+correct:"Angel"
 },
+
 {
 type:"mcq",
-q:"Who would most likely choose farm life over city chaos?",
-options:["Meharoofa","Adithya","Angel","Pavithra"],
-answer:1
+q:"Who would most likely prefer animals and farming over city chaos?",
+options:["Adithya","Angel","Meharoofa","Pavithra"],
+answer:0,
+correct:"Adithya"
 },
+
 {
 type:"text",
-q:"If the four hostel friends went on a trip together, who would be responsible for what?",
-keywords:["angel","adithya","meharoofa","pavithra"]
+q:"Imagine your four friends are reviewing your personality. Write what each one would probably say.",
+keywords:["angel","adithya","meharoofa","pavithra"],
+answer:"Mentioning the four friends earns the mark."
 },
+
 {
 type:"text",
-q:"Write a dramatic headline about your day.",
-keywords:["day"]
-},
-{
-type:"task",
-q:"TASK: Invent a ridiculous rule that everyone in your friend group must follow tomorrow."
+q:"Write a dramatic five-line review of today's weather from your room.",
+keywords:[""],
+answer:"A genuine review earns the mark."
 }
-]
+
+],
+task:{
+q:"TASK: Invent a fake newspaper headline about yourself.",
+keywords:[""],
+answer:"Any genuine headline earns the mark."
+}
 },
 
 {
 day:14,
 questions:[
+
 {
 type:"mcq",
-q:"Who is most likely to have a phone-related distraction during an important conversation?",
-options:["Angel","Pavithra","Meharoofa","Adithya"],
-answer:0
+q:"Who would most likely turn a simple plan into a long discussion?",
+options:["Pavithra","Angel","Adithya","Meharoofa"],
+answer:0,
+correct:"Pavithra"
 },
+
 {
 type:"mcq",
-q:"Who is most likely to be the first person to notice that everyone is behaving foolishly?",
-options:["Angel","Adithya","Pavithra","Meharoofa"],
-answer:2
+q:"Who is most likely to be caught laughing during a serious conversation?",
+options:["Meharoofa","Angel","Adithya","Pavithra"],
+answer:1,
+correct:"Angel"
 },
+
 {
 type:"text",
-q:"Write a friendship award for each of your four friends. Make the awards ridiculous.",
-keywords:["angel","adithya","meharoofa","pavithra"]
+q:"Write a friendship award ceremony for the five of you. Give each person one ridiculous award.",
+keywords:["angel","adithya","meharoofa","pavithra","vismaya"],
+answer:"Mentioning the five friends earns the mark."
 },
+
 {
 type:"text",
-q:"What is one thing you are looking forward to doing when you are back with everyone?",
-keywords:["friends"]
-},
-{
-type:"task",
-q:"TASK: Create your own victory pose and hold it for five seconds."
+q:"Write a message to your future self one month from now.",
+keywords:["future","month"],
+answer:"A genuine message mentioning your future earns the mark."
 }
-]
+
+],
+task:{
+q:"TASK: Create one new rule for the Vismaya friendship universe.",
+keywords:[""],
+answer:"Any genuine rule earns the mark."
+}
 },
 
 {
 day:15,
 questions:[
+
 {
 type:"mcq",
-q:"After 15 days of friendship chaos, who deserves an award for giving the most advice?",
-options:["Pavithra","Angel","Adithya","Meharoofa"],
-answer:0
+q:"Who is the most likely candidate for 'phone always in hand'?",
+options:["Angel","Adithya","Pavithra","Meharoofa"],
+answer:0,
+correct:"Angel"
 },
+
 {
 type:"mcq",
-q:"Which combination best describes this entire friendship group?",
-options:[
-"Peaceful and silent",
-"Organised and serious",
-"Chaotic, dramatic and unforgettable",
-"Nobody talks to anybody"
+q:"Who is the group's most likely 'study department'?",
+options:["Adithya","Meharoofa","Angel","Pavithra"],
+answer:3,
+correct:"Pavithra"
+},
+
+{
+type:"text",
+q:"Final friendship question: Describe Angel, Adithya, Meharoofa and Pavithra in one sentence each.",
+keywords:["angel","adithya","meharoofa","pavithra"],
+answer:"Mentioning all four friends earns the mark."
+},
+
+{
+type:"text",
+q:"FINAL PERSONAL QUESTION: After surviving 15 days of this nonsense, write a message describing your experience.",
+keywords:[""],
+answer:"A genuine final message earns the mark."
+}
+
 ],
-answer:2
-},
-{
-type:"text",
-q:"Write a final friendship message to Angel, Adithya, Meharoofa and Pavithra. Make it funny but genuinely sweet.",
-keywords:["friend","love","miss","thank"]
-},
-{
-type:"text",
-q:"Final Vismaya question: What was your favourite part of this 15-day boredom-breaking journey?",
-keywords:["favourite","favorite"]
-},
-{
-type:"task",
-q:"FINAL TASK: Give yourself a dramatic standing ovation. YOU MADE IT THROUGH ALL 15 DAYS! 👏😂"
-}
-]
-}
-
-];
-
-/* ---------------------------------------------------------
-   SOUND ENGINE
-   Uses browser Web Audio API.
-   No sound files required.
-   --------------------------------------------------------- */
-
-let audioContext;
-
-function sound(freq, duration, type="sine", volume=.08){
-  try{
-    audioContext = audioContext || new (window.AudioContext || window.webkitAudioContext)();
-
-    const oscillator = audioContext.createOscillator();
-    const gain = audioContext.createGain();
-
-    oscillator.type = type;
-    oscillator.frequency.value = freq;
-
-    gain.gain.setValueAtTime(volume,audioContext.currentTime);
-    gain.gain.exponentialRampToValueAtTime(
-      0.001,
-      audioContext.currentTime + duration
-    );
-
-    oscillator.connect(gain);
-    gain.connect(audioContext.destination);
-
-    oscillator.start();
-    oscillator.stop(audioContext.currentTime + duration);
-  }catch(e){}
-}
-
-function submitSound(){
-  sound(523,.12);
-  setTimeout(()=>sound(659,.12),100);
-  setTimeout(()=>sound(784,.18),200);
-}
-
-function correctSound(){
-  sound(659,.1);
-  setTimeout(()=>sound(784,.15),90);
-}
-
-function wrongSound(){
-  sound(220,.18,"sawtooth");
-  setTimeout(()=>sound(180,.25,"sawtooth"),130);
-}
-
-function celebrationSound(){
-  sound(523,.1);
-  setTimeout(()=>sound(659,.1),100);
-  setTimeout(()=>sound(784,.1),200);
-  setTimeout(()=>sound(1047,.25),300);
-}
-
-/* ---------------------------------------------------------
-   SCORE REACTIONS
-   --------------------------------------------------------- */
-
-function scoreDialogue(score){
-
-  const messages = {
-    0:"😭 VISMAYAAAA... 0?! We need to have a friendship meeting immediately.",
-    1:"😂 Very bad Vismaya! WHY LIKE THIS?! Even the questions are confused.",
-    2:"😌 Okay okay... you're alive. But your friendship knowledge needs charging.",
-    3:"😎 Not bad! Somebody has clearly been attending Friendship Studies.",
-    4:"🔥 OHO! Almost perfect! The hostel committee is impressed.",
-    5:"👑 5/5?! EXCUSE ME?! Friendship professor has entered the chat!"
-  };
-
-  return messages[score] || "";
-}
-
-/* ---------------------------------------------------------
-   SAVE
-   --------------------------------------------------------- */
-
-function save(){
-  localStorage.setItem(STORAGE_KEY,JSON.stringify(state));
-}
-
-/* ---------------------------------------------------------
-   CURRENT UNLOCKED DAY
-   ----------------
+  
