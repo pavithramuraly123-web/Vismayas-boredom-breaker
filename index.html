@@ -1016,4 +1016,812 @@ answer:"A genuine final message earns the mark."
 }
 
 ],
-  
+task:{
+q:"FINAL TASK: Give yourself a ridiculous trophy title for completing the entire 15-day Boredom Breaker.",
+keywords:[""],
+answer:"Any genuine trophy title earns the mark."
+}
+
+}
+
+];
+
+
+/* =========================================================
+   STORAGE
+   ========================================================= */
+
+const SCORE_KEY = "vismaya_boredom_score_v1";
+const COMPLETED_KEY = "vismaya_completed_days_v1";
+const TIME_KEY = "vismaya_day_times_v1";
+
+let totalScore = Number(localStorage.getItem(SCORE_KEY) || 0);
+let completedDays = JSON.parse(
+  localStorage.getItem(COMPLETED_KEY) || "[]"
+);
+let dayTimes = JSON.parse(
+  localStorage.getItem(TIME_KEY) || "{}"
+);
+
+let currentDay = 1;
+
+
+/* =========================================================
+   FUNNY SCORE DIALOGUES
+   ========================================================= */
+
+function scoreDialogue(score){
+
+  if(score === 0){
+    return "😭 Vismaya... ZERO?! The friendship department has filed a complaint.";
+  }
+
+  if(score === 1){
+    return "😂 Very bad Vismaya! Why like this?! Even the questions are disappointed.";
+  }
+
+  if(score === 2){
+    return "😮‍💨 Two marks?! Okay... we will call this a warm-up.";
+  }
+
+  if(score === 3){
+    return "😌 Three out of five! Not bad... your brain has officially entered the building.";
+  }
+
+  if(score === 4){
+    return "🔥 FOUR?! Okayyy Vismaya! Somebody is taking this competition seriously!";
+  }
+
+  return "👑 5/5!!! WHO ARE YOU AND WHAT HAVE YOU DONE WITH VISMAYA?! PERFECT!";
+}
+
+
+function finalDialogue(score){
+
+  if(score <= 15)
+    return "😂 The friendship exam absolutely defeated you. But honestly... iconic.";
+
+  if(score <= 30)
+    return "😭 You survived! Your marks may need emotional support though.";
+
+  if(score <= 45)
+    return "😌 Not bad! The Friendship Studies department approves.";
+
+  if(score <= 60)
+    return "🔥 Okay genius! That's actually impressive.";
+
+  if(score <= 70)
+    return "👑 Almost perfect! Certified Friendship Studies scholar.";
+
+  return "🏆 LEGENDARY! 75/75! You have officially completed Friendship Studies with distinction!";
+}
+
+
+/* =========================================================
+   SOUND
+   ========================================================= */
+
+function playResultSound(score){
+
+  try{
+
+    const AudioContext =
+      window.AudioContext || window.webkitAudioContext;
+
+    if(!AudioContext) return;
+
+    const ctx = new AudioContext();
+
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+
+    osc.frequency.value =
+      score >= 4 ? 880 : score >= 2 ? 600 : 220;
+
+    osc.type = "sine";
+
+    gain.gain.setValueAtTime(.0001,ctx.currentTime);
+
+    gain.gain.exponentialRampToValueAtTime(
+      .18,
+      ctx.currentTime + .03
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+      .0001,
+      ctx.currentTime + .5
+    );
+
+    osc.start();
+
+    osc.stop(ctx.currentTime + .5);
+
+  }catch(e){}
+
+}
+
+
+/* =========================================================
+   MEDIA HTML
+   ========================================================= */
+
+function mediaHTML(day){
+
+  const m = media[day];
+
+  if(!m) return "";
+
+  if(m.type === "video"){
+
+    return `
+      <div class="media-box">
+        <video controls playsinline preload="metadata">
+          <source src="${m.src}" type="video/mp4">
+          Your browser does not support this video.
+        </video>
+        <div class="media-caption">${m.caption}</div>
+      </div>
+    `;
+
+  }
+
+  return `
+    <div class="media-box">
+      <img src="${m.src}" alt="Day ${day} memory">
+      <div class="media-caption">${m.caption}</div>
+    </div>
+  `;
+}
+
+
+/* =========================================================
+   UNLOCK SYSTEM
+   ========================================================= */
+
+function isUnlocked(day){
+
+  if(day === 1) return true;
+
+  const previousDay = day - 1;
+
+  if(!completedDays.includes(previousDay)){
+    return false;
+  }
+
+  const completedAt = Number(dayTimes[previousDay] || 0);
+
+  if(!completedAt) return false;
+
+  return Date.now() >= completedAt + (12 * 60 * 60 * 1000);
+}
+
+
+function remainingTime(day){
+
+  const previousDay = day - 1;
+
+  const completedAt = Number(dayTimes[previousDay] || 0);
+
+  if(!completedAt) return "";
+
+  const target =
+    completedAt + (12 * 60 * 60 * 1000);
+
+  const remaining =
+    Math.max(0,target - Date.now());
+
+  const hours =
+    Math.floor(remaining / 3600000);
+
+  const minutes =
+    Math.floor((remaining % 3600000) / 60000);
+
+  const seconds =
+    Math.floor((remaining % 60000) / 1000);
+
+  return `${String(hours).padStart(2,"0")}:${
+    String(minutes).padStart(2,"0")
+  }:${
+    String(seconds).padStart(2,"0")
+  }`;
+}
+
+
+/* =========================================================
+   DAY BUTTONS
+   ========================================================= */
+
+function renderDayButtons(){
+
+  const box = document.getElementById("dayButtons");
+
+  box.innerHTML = "";
+
+  days.forEach(d => {
+
+    const btn = document.createElement("button");
+
+    btn.className = "day-btn";
+
+    if(d.day === currentDay){
+      btn.classList.add("active");
+    }
+
+    if(!isUnlocked(d.day) && !completedDays.includes(d.day)){
+      btn.classList.add("locked");
+      btn.innerHTML = `🔒 Day ${d.day}`;
+    }else{
+      btn.innerHTML = completedDays.includes(d.day)
+        ? `✅ Day ${d.day}`
+        : `Day ${d.day}`;
+    }
+
+    btn.onclick = () => {
+
+      if(!isUnlocked(d.day) &&
+         !completedDays.includes(d.day)){
+
+        alert(
+          `🔒 Day ${d.day} is still locked.\n\n` +
+          `Complete the previous day and wait 12 hours.`
+        );
+
+        return;
+      }
+
+      currentDay = d.day;
+
+      renderDayButtons();
+      renderDay();
+    };
+
+    box.appendChild(btn);
+
+  });
+
+}
+
+
+/* =========================================================
+   RENDER DAY
+   ========================================================= */
+
+function renderDay(){
+
+  const app = document.getElementById("app");
+
+  const d = days.find(x => x.day === currentDay);
+
+  if(!d) return;
+
+  if(completedDays.includes(d.day)){
+
+    renderCompletedDay(d);
+    return;
+
+  }
+
+  let html = `
+
+    <div class="day-card">
+
+      <h2 class="day-title">Day ${d.day} 💗</h2>
+
+      <div class="day-subtitle">
+        5 challenges • 5 marks
+      </div>
+
+      ${mediaHTML(d.day)}
+
+      <form id="quizForm">
+  `;
+
+  d.questions.forEach((q,i)=>{
+
+    html += `
+      <div class="question">
+
+        <div class="question-number">
+          QUESTION ${i+1} / 4
+        </div>
+
+        <div class="question-text">
+          ${q.q}
+        </div>
+    `;
+
+    if(q.type === "mcq"){
+
+      q.options.forEach((option,j)=>{
+
+        html += `
+          <label class="option">
+            <input
+              type="radio"
+              name="q${i}"
+              value="${j}"
+            >
+            ${option}
+          </label>
+        `;
+
+      });
+
+    }else{
+
+      html += `
+        <textarea
+          name="q${i}"
+          placeholder="Type your answer here... 💗"
+        ></textarea>
+      `;
+
+    }
+
+    html += `</div>`;
+
+  });
+
+
+  html += `
+
+      <div class="question task-box">
+
+        <span class="task-label">
+          ⭐ TASK
+        </span>
+
+        <div class="question-text">
+          ${d.task.q}
+        </div>
+
+        <textarea
+          name="task"
+          placeholder="Complete the task and write your answer here..."
+        ></textarea>
+
+      </div>
+
+      <button class="submit-btn" type="submit">
+        💗 SUBMIT DAY ${d.day}
+      </button>
+
+      </form>
+
+      <div class="result" id="result"></div>
+
+    </div>
+  `;
+
+  app.innerHTML = html;
+
+  document
+    .getElementById("quizForm")
+    .addEventListener("submit",submitDay);
+
+}
+
+
+/* =========================================================
+   COMPLETED DAY
+   ========================================================= */
+
+function renderCompletedDay(d){
+
+  const app = document.getElementById("app");
+
+  let next = d.day + 1;
+
+  let nextHTML = "";
+
+  if(next <= 15){
+
+    if(isUnlocked(next)){
+
+      nextHTML = `
+        <div class="next-box">
+          🎉 Day ${next} is ready!
+          <br><br>
+          Tap <b>Day ${next}</b> above to continue.
+        </div>
+      `;
+
+    }else{
+
+      nextHTML = `
+        <div class="next-box">
+          ⏰ Next challenge unlocks in:
+          <div class="countdown" id="countdown">
+            ${remainingTime(next)}
+          </div>
+        </div>
+      `;
+
+    }
+
+  }
+
+  app.innerHTML = `
+
+    <div class="day-card">
+
+      <h2 class="day-title">
+        ✅ Day ${d.day} Completed!
+      </h2>
+
+      <p>
+        You've already completed this challenge.
+        Your score has been saved. 💗
+      </p>
+
+      ${mediaHTML(d.day)}
+
+      ${nextHTML}
+
+    </div>
+  `;
+
+}
+
+
+/* =========================================================
+   CHECK TEXT ANSWERS
+   ========================================================= */
+
+function checkText(answer,question){
+
+  const text =
+    answer.trim().toLowerCase();
+
+  if(!text){
+    return false;
+  }
+
+  /*
+    Descriptive questions with no required keywords
+    receive the mark when answered.
+  */
+
+  if(!question.keywords ||
+     question.keywords.length === 0 ||
+     (question.keywords.length === 1 &&
+      question.keywords[0] === "")){
+
+    return true;
+
+  }
+
+  return question.keywords.some(
+    word => text.includes(word.toLowerCase())
+  );
+
+}
+
+
+/* =========================================================
+   SUBMIT DAY
+   ========================================================= */
+
+function submitDay(event){
+
+  event.preventDefault();
+
+  const d =
+    days.find(x => x.day === currentDay);
+
+  const form =
+    document.getElementById("quizForm");
+
+  const formData =
+    new FormData(form);
+
+  let score = 0;
+
+  let reviews = [];
+
+  d.questions.forEach((q,i)=>{
+
+    if(q.type === "mcq"){
+
+      const value =
+        formData.get(`q${i}`);
+
+      if(value === null){
+
+        reviews.push(`
+          <div class="review-item wrong">
+            ❌ Question ${i+1}: Not answered.
+            <br>
+            Correct answer: <b>${q.correct}</b>
+          </div>
+        `);
+
+        return;
+      }
+
+      const selected =
+        Number(value);
+
+      if(selected === q.answer){
+
+        score++;
+
+        reviews.push(`
+          <div class="review-item correct">
+            ✅ Question ${i+1}: Correct!
+            <br>
+            Answer: <b>${q.correct}</b>
+          </div>
+        `);
+
+      }else{
+
+        reviews.push(`
+          <div class="review-item wrong">
+            ❌ Question ${i+1}: Wrong!
+            <br>
+            Your answer:
+            <b>${q.options[selected]}</b>
+            <br>
+            Correct answer:
+            <b>${q.correct}</b>
+          </div>
+        `);
+
+      }
+
+    }else{
+
+      const answer =
+        formData.get(`q${i}`) || "";
+
+      const correct =
+        checkText(answer,q);
+
+      if(correct){
+
+        score++;
+
+        reviews.push(`
+          <div class="review-item correct">
+            ✅ Question ${i+1}: Mark earned!
+            <br>
+            ${q.answer}
+          </div>
+        `);
+
+      }else{
+
+        reviews.push(`
+          <div class="review-item wrong">
+            ❌ Question ${i+1}: No mark.
+            <br>
+            ${q.answer}
+          </div>
+        `);
+
+      }
+
+    }
+
+  });
+
+
+  /* TASK */
+
+  const taskAnswer =
+    formData.get("task") || "";
+
+  const taskCorrect =
+    taskAnswer.trim().length > 0;
+
+  if(taskCorrect){
+
+    score++;
+
+    reviews.push(`
+      <div class="review-item correct">
+        ✅ Task completed!
+        <br>
+        ⭐ 1 mark earned.
+      </div>
+    `);
+
+  }else{
+
+    reviews.push(`
+      <div class="review-item wrong">
+        ❌ Task not completed.
+        <br>
+        ⭐ 0 mark.
+      </div>
+    `);
+
+  }
+
+
+  /* UPDATE TOTAL */
+
+  totalScore += score;
+
+  localStorage.setItem(
+    SCORE_KEY,
+    totalScore
+  );
+
+  completedDays.push(currentDay);
+
+  localStorage.setItem(
+    COMPLETED_KEY,
+    JSON.stringify(completedDays)
+  );
+
+  dayTimes[currentDay] = Date.now();
+
+  localStorage.setItem(
+    TIME_KEY,
+    JSON.stringify(dayTimes)
+  );
+
+
+  /* RESULT */
+
+  const result =
+    document.getElementById("result");
+
+  result.style.display = "block";
+
+  result.innerHTML = `
+
+    <div>
+      🎉 DAY ${currentDay} RESULT 🎉
+    </div>
+
+    <div class="result-score">
+      ${score} / 5
+    </div>
+
+    <div class="feedback">
+      ${scoreDialogue(score)}
+    </div>
+
+    <div class="answer-review">
+      ${reviews.join("")}
+    </div>
+
+    <div class="next-box">
+
+      ${
+        currentDay < 15
+        ?
+        `
+        🔒 Day ${currentDay+1}
+        will unlock after <b>12 hours</b>.
+
+        <div class="countdown" id="countdown">
+          ${remainingTime(currentDay+1)}
+        </div>
+        `
+        :
+        `
+        🏆 You have completed all 15 days!
+        `
+      }
+
+    </div>
+  `;
+
+
+  form.querySelector(".submit-btn").disabled = true;
+
+  playResultSound(score);
+
+  updateScore();
+
+  renderDayButtons();
+
+  if(currentDay === 15){
+
+    showFinalScore();
+
+  }
+
+}
+
+
+/* =========================================================
+   SCORE
+   ========================================================= */
+
+function updateScore(){
+
+  document.getElementById(
+    "totalScore"
+  ).textContent = totalScore;
+
+  document.getElementById(
+    "progressBar"
+  ).style.width =
+    `${(totalScore/75)*100}%`;
+
+  document.getElementById(
+    "scoreMessage"
+  ).textContent =
+    totalScore === 0
+    ? "Your boredom-breaking journey starts now 💗"
+    : `${totalScore} marks collected... keep going! 💗`;
+
+}
+
+
+/* =========================================================
+   FINAL SCORE
+   ========================================================= */
+
+function showFinalScore(){
+
+  const card =
+    document.getElementById("finalCard");
+
+  card.style.display = "block";
+
+  document.getElementById(
+    "finalScore"
+  ).textContent = totalScore;
+
+  document.getElementById(
+    "finalMessage"
+  ).textContent =
+    finalDialogue(totalScore);
+
+}
+
+
+/* =========================================================
+   COUNTDOWN
+   ========================================================= */
+
+setInterval(()=>{
+
+  const countdown =
+    document.getElementById("countdown");
+
+  if(!countdown) return;
+
+  const nextDay =
+    currentDay + 1;
+
+  if(nextDay > 15) return;
+
+  if(isUnlocked(nextDay)){
+
+    countdown.innerHTML =
+      "🎉 UNLOCKED! Refresh or tap the next day.";
+
+    renderDayButtons();
+
+    return;
+
+  }
+
+  countdown.textContent =
+    remainingTime(nextDay);
+
+},1000);
+
+
+/* =========================================================
+   INITIAL LOAD
+   ========================================================= */
+
+updateScore();
+renderDayButtons();
+renderDay();
+
+</script>
+
+</body>
+</html>
